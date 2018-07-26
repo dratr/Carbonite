@@ -42,6 +42,17 @@
 </Slider>
 
 <ScrollFrame name="NxQuestDetails" inherits="UIPanelScrollFrameTemplate" virtual="true">
+	<Layers>
+		<Layer level="BORDER" textureSubLevel="-1">	
+			<Texture parentKey="SealMaterialBG" hidden="true">
+				<Size x="1" y="1"/>
+				<Anchors>
+					<Anchor point="TOPLEFT" x="0" y="0"/>
+				</Anchors>
+				<TexCoords left="0" right="0" top="0" bottom="0"/>
+			</Texture>
+		</Layer>
+	</Layers>
 	<Size>
 		<AbsDimension x="298" y="334" />
 	</Size>
@@ -53,10 +64,22 @@
 		</Anchor>
 	</Anchors>
 	<ScrollChild>
-		<Frame name="NXQuestLogDetailScrollChildFrame">
+		<!-- Inserted to mimic blizzard quest frame structure
+			to allow "seals" on quest displays to work right -->
+		<Frame name="NXQuestDetailsScrollIntermediate">
 			<Size>
 				<AbsDimension x="298" y="333" />
 			</Size>
+			<Frames>
+				<Frame name="NXQuestLogDetailScrollChildFrame">
+					<Size>
+						<AbsDimension x="298" y="333" />
+					</Size>
+					<Anchors>
+						<Anchor point="TOPLEFT" x="0" y="0"/>
+					</Anchors>
+				</Frame>
+			</Frames>
 		</Frame>
 	</ScrollChild>
 </ScrollFrame>
