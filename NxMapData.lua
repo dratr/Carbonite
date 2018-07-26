@@ -1391,7 +1391,7 @@ Map.MapWorldInfo = {
 		City = true,
 		Overlay = "ashranhordefactionhub",
 	},
-	[625] = {
+	[627] = {
 		Scale = 1.8,
 		X = -983,
 		Y = 112,
@@ -1401,8 +1401,8 @@ Map.MapWorldInfo = {
 		Alpha = .85,
 		MapLevel = 1,		
 	},
-	[627] = {
-		BaseMap = 625,
+	[625] = {
+		BaseMap = 627,
 		City = true,
 		MapLevel = 1,
 	},
