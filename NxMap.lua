@@ -6103,7 +6103,7 @@ function Nx.Map:CheckWorldHotspotsType (wx, wy, quad)
 	for n, spot in ipairs (quad) do
 		if wx >= spot.WX1 and wx <= spot.WX2 and wy >= spot.WY1 and wy <= spot.WY2 then
 
-			local curId = self:GetCurrentMapId()
+			local curId = self:GetRealMapId()
 
 			if spot.MapId ~= curId and not WorldMapFrame:IsShown() then
 
@@ -9283,7 +9283,7 @@ function Nx.Map:SetCurrentMap (mapId)
 					local cont = self.MapWorldInfo[mapId].Cont
 					local zone = self.MapWorldInfo[mapId].Zone
 
-					if not self.MapWorldInfo[mapId].City and (not cont or not zone or mapId == self:GetRealBaseMapId() or mapId == self:GetRealMapId()) then						
+					if not self.MapWorldInfo[mapId].City and (not cont or not zone or mapId == self:GetRealBaseMapId()) then						
 						Nx.Map:SetToCurrentZone()		-- This fixes the Scarlet Enclave map selection, so we get player position						
 						--SetDungeonMapLevel (1)
 					else
