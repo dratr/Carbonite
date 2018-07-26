@@ -1589,6 +1589,13 @@ Map.MapWorldInfo = {
 		X = -2599.2078125,
 		Y = -1864.271875,
 	},
+	[907] = {
+		Name = L["Seething Shore"],
+		Scale = 2.2916666259766,
+		X = -16000,
+		Y = 1000,
+		Short = "SS",
+	},
 	[942] = {
 		X = -668.75,
 		Y = -1032.5,
@@ -1628,14 +1635,6 @@ Map.MapWorldInfo = {
 		City = true,
 		Alpha = .85,
 		MapLevel = 1,		
-	},
---XXX wrong id here
-	[1186] = {
-		Name = L["Seething Shore"],
-		Scale = 2.2916666259766,
-		X = -16000,
-		Y = 1000,
-		Short = "SS",
 	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
