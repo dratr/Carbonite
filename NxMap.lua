@@ -4153,7 +4153,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	--
 
-	if Nx.Tick % 3 == 0 then	-- Do less often, since tip makes garbage
+	if map.Tick % 3 == 0 then	-- Do less often, since tip makes garbage
 
 		local tip = format (" %s", cursorLocStr)
 		if map.Debug and winx then
@@ -5214,7 +5214,7 @@ function Nx.Map:Update (elapsed)
 
 	-- Scan. Switch maps if needed. Do at end so we dont glitch
 
-	if Nx.Tick % self.ScanContinentsMod == 3 then
+	if self.Tick % self.ScanContinentsMod == 3 then
 		self:ScanContinents()
 	end
 
@@ -10646,8 +10646,9 @@ end
 --------
 
 function Nx.Map.Dock:MinimapDetachFrms()
+	local map = Nx.Map:GetMap (1)
 
-	if Nx.Tick % self.UpdateMod ~= 0 then
+	if map.Tick % self.UpdateMod ~= 0 then
 		return
 	end
 
