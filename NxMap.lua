@@ -3644,6 +3644,9 @@ function Nx.Map:OnEvent (event, ...)
 			Nx.Map.NInstMapId = nil
 			Nx.Map:HideNewPlrFrame()
 		end
+		if not WorldMapFrame:IsShown() then
+			Nx.Map:SetToCurrentZone()
+		end
 	elseif event == "ZONE_CHANGED" then
 		Nx.Map.Indoors = false
 		Nx.Map.NInstMapId = nil
