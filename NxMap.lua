@@ -5216,7 +5216,7 @@ function Nx.Map:ScanContinents()
 	Nx.Map.ScanContinentsMod = 500
 
 	local oldCont = Nx.Map:GetCurrentMapContinent()
-	if oldCont < 0 then
+	if not oldCont or oldCont < 0 then
 		return
 	end
 
