@@ -3222,7 +3222,7 @@ end)]]--
 	end
 end)]]--
 
-Nx.Map.WMFOnShow = true
+Nx.Map.WMFOnShow = false
 WorldMapFrame:HookScript("OnShow", function()
 	--_G["Minimap"]:Show()
 	if Nx.Map.WMFOnShow then
