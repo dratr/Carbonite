@@ -3114,7 +3114,7 @@ WorldMapFrame:HookScript("OnKeyDown", function(self, key)
 	end
 end)
 
-Nx.Map.WMFOnShow = true
+Nx.Map.WMFOnShow = false
 WorldMapFrame:HookScript("OnShow", function()
 	if Nx.Map.WMFOnShow then
 		local orgin = IsAltKeyDown()
