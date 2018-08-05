@@ -457,6 +457,7 @@ Nx.Zones = {
     [931] = L["Greater Invasion Point: Sotanathor"] .. "|110|110|3|5|885|50|50|0",
     [932] = L["Greater Invasion Point: Occularus"] .. "|110|110|3|5|885|50|50|0",
 	[942] = L["Stormsong Valley"] .. "|110|120|2|11||",
+    [1165] = L["Dazar'alor"] .. "|100|110|2|10||",
 	
 	[981] = L["Un'gol Ruins"] .. "|110|120|3|5|672|0|0|0",
 	[1022] = L["Uncharted Island"] .. "|110|120|3|5|672|0|0|0",
