@@ -643,7 +643,7 @@ function Nx.Map:Create (index)
 	win:InitLayoutData ("623", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("837", -.0001, -.4, -.19, -.3, 1)
 --	win:InitLayoutData ("1144", -.0001, -.4, -.19, -.3, 1)
---	win:InitLayoutData ("1186", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("907", -.0001, -.4, -.19, -.3, 1)
 
 	win:SetUser (m, self.OnWin)
 	win.UserUpdateFade = m.WinUpdateFade
