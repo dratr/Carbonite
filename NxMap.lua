@@ -3727,6 +3727,7 @@ function Nx.Map:MouseWheel (value)
 	local oy = map.MapPosY + (top - y - map.TitleH - map.MapH / 2) / map.Scale
 
 	map.Scale = map:ScrollScale (value)
+	map.RealScale = map.Scale
 	map.StepTime = 10
 	map.MapScale = map.Scale / 10.02
 	local nx = map.MapPosX + (x - left - map.PadX - map.MapW / 2) / map.Scale
