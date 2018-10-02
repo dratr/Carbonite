@@ -3116,7 +3116,7 @@ WorldMapFrame:HookScript("OnKeyDown", function(self, key)
 	end
 end)
 
-Nx.Map.WMFOnShow = true
+Nx.Map.WMFOnShow = false
 WorldMapFrame:HookScript("OnShow", function()
 	if Nx.Map.WMFOnShow then
 		local orgin = IsAltKeyDown()
@@ -5235,7 +5235,7 @@ function Nx.Map:ScanContinents()
 	Nx.Map.ScanContinentsMod = 500
 
 	local oldCont = Nx.Map:GetCurrentMapContinent()
-	if oldCont < 0 then
+	if not oldCont or oldCont < 0 then
 		return
 	end
 
