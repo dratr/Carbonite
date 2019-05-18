@@ -147,6 +147,16 @@ NXMapOptsMapsDefault = 	{
 		NXInstanceMaps = true,
 		NXWorldShow = false,
 	},
+	[1366] = {	-- AB
+		NXPlyrFollow = true,
+		NXInstanceMaps = true,
+		NXWorldShow = false,
+	},
+	[1339] = {	-- WG
+		NXPlyrFollow = true,
+		NXInstanceMaps = true,
+		NXWorldShow = false,
+	},
 }
 
 --------
@@ -644,6 +654,8 @@ function Nx.Map:Create (index)
 	win:InitLayoutData ("837", -.0001, -.4, -.19, -.3, 1)
 --	win:InitLayoutData ("1144", -.0001, -.4, -.19, -.3, 1)
 	win:InitLayoutData ("907", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("1366", -.0001, -.4, -.19, -.3, 1)
+	win:InitLayoutData ("1339", -.0001, -.4, -.19, -.3, 1)
 
 	win:SetUser (m, self.OnWin)
 	win.UserUpdateFade = m.WinUpdateFade
@@ -9106,7 +9118,7 @@ function Nx.Map:InitTables()
 		 [10] = {862,863,864,1165},
 		 [11] = {895,896,942,1161,1462},
 		 [12] = {1355},
-		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623,837,907},		  -- 1134 spbrawl		 
+		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623,837,907,1339,1366},		  -- 1134 spbrawl		 
 		 [100] = {},
 	}
 

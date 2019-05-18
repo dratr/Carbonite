@@ -1644,19 +1644,6 @@ Map.MapWorldInfo = {
 		Alpha = .85,
 		MapLevel = 1,
 	},
-	[1355] = {
-		Scale = 8.529166,
-		X = -319.5834,
-		Y = -557.5,
-		Name = L["Nazjatar"],
-		Overlay = "nazjatar",
-	},
-	[1462] = {
-		Scale = 4.675,
-		X = -1324.166,
-		Y = -736.25,
-		Name = L["Mechagon Island"],
-		Overlay = "mechagonisland"		
 --XXX wrong id here
 	[1186] = {
 		Name = L["Seething Shore"],
@@ -1665,6 +1652,34 @@ Map.MapWorldInfo = {
 		Y = 1000,
 		Short = "SS",
 	},
+	[1339] = {
+		Name = L["Warsong Gulch"],
+		Scale = 2.2916666259766,
+		X = -16000,
+		Y = 1000,
+		Short = "WG",
+	},
+	[1355] = {
+		Scale = 8.529166,
+		X = -319.5834,
+		Y = -557.5,
+		Name = L["Nazjatar"],
+		Overlay = "nazjatar",
+	},
+	[1366] = {
+		Name = L["Arathi Basin"],
+		Scale = 3.5124998474121,
+		X = -16000,
+		Y = 0,
+		Short = "AB",
+	},
+	[1462] = {
+		Scale = 4.675,
+		X = -1324.166,
+		Y = -736.25,
+		Name = L["Mechagon Island"],
+		Overlay = "mechagonisland"
+        },		
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
 		1,
