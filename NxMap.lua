@@ -5843,7 +5843,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 		end
 	end
 
-	if combatName then
+	if false and combatName then
 
 		if not self.InCombat or combatDist > 35 then
 			self.TrackPlayer = combatName
