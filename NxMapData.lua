@@ -1413,19 +1413,17 @@ Map.MapWorldInfo = {
 		City = true,
 		Overlay = "ashranhordefactionhub",
 	},
-	[625] = {
-		Scale = 1.75,
-		ScaleAdjust = 0.94,
-		MMOutside = true,
-		X = -980,
-		Y = 110,
+	[627] = {
+		Scale = 1.8,
+		X = -983,
+		Y = 112,
 		Overlay = "dalaran7",
 		MapBaseName = "Dalaran7010_",
 		City = true,
 		MapLevel = 1,		
 	},
-	[627] = {
-		BaseMap = 625,
+	[625] = {
+		BaseMap = 627,
 		City = true,
 		MapLevel = 1,
 	},
@@ -10699,13 +10697,6 @@ Map.MiniMapBlks = {
 		Map.MapWorldInfo[876].X + Map.MapInfo[11].X + 38.80 - 257.30 + 16.51, Map.MapWorldInfo[876].Y + Map.MapInfo[11].Y - 801.10 + 150.95 + 39.22,
 		"World\\Minimaps\\kultiras"
 	},
-	[12] = {
-		Map.NazjatarBlks,
-		2824,
-		28, 24,
-		Map.MapWorldInfo[1355].X + Map.MapInfo[12].X - 106.85, Map.MapWorldInfo[1355].Y + Map.MapInfo[12].Y - 295.44,
-		"World\\Minimaps\\nazjatar"
-	},	
 	[12] = {
 		Map.NazjatarBlks,
 		2824,
