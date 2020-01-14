@@ -5134,6 +5134,54 @@ function Nx.Map:Update (elapsed)
 
 	self:UpdateIcons (self.KillShow)
 
+	-- POIs
+	local areaPOIs = C_AreaPoiInfo.GetAreaPOIForMap(mapId);
+	for i, areaPoiID in ipairs(areaPOIs) do
+		local cPOI = C_AreaPoiInfo.GetAreaPOIInfo(mapId, areaPoiID)
+		local name = cPOI.name
+		local txIndex = cPOI.textureIndex
+		local pX = cPOI.position.x
+		local pY = cPOI.position.y
+			
+		if pX and name then
+
+			local x, y = self:GetWorldPos (mapId, pX * 100, pY * 100)
+			local f = self:GetIconNI()
+			if cPOI.atlasName then
+				local atlasName = cPOI.atlasName
+				if cPOI.textureKitPrefix then
+					atlasName = ATLAS_WITH_TEXTURE_KIT_PREFIX:format(poiInfo.textureKitPrefix, atlasName)
+				end
+				f.texture:SetAtlas (atlasName)
+				f.texture:SetTexCoord(0, 1, 0, 1)
+				self:ClipFrameZ (f, pX * 100, pY * 100, 36, 36, 0)
+			else
+				f:SetSize(32, 32)
+				f.texture:SetWidth(16)
+				f.texture:SetHeight(16)
+				f.texture:SetTexture("Interface/Minimap/POIIcons")
+				local x1, x2, y1, y2 = GetPOITextureCoords(cPOI.textureIndex)
+				self:ClipFrameZ (f, pX * 100, pY * 100, 32, 32, 0)
+				f.texture:SetTexCoord(x1, x2, y1, y2)
+			end
+		end
+	end
+	
+	-- Vignettes
+	local vignetteGUIDs = C_VignetteInfo.GetVignettes()
+	for i, vignetteGUID in ipairs(vignetteGUIDs) do
+		local vignetteInfo = C_VignetteInfo.GetVignetteInfo(vignetteGUID)
+		local pos = C_VignetteInfo.GetVignettePosition(vignetteGUID, mapId)
+		if vignetteInfo and vignetteInfo.onWorldMap and pos then
+			local f = self:GetIconNI()
+			f.texture:SetAtlas (vignetteInfo.atlasName, true)
+			self:ClipFrameZ (f, pos.x * 100, pos.y * 100, 36, 36, 0)
+		end
+	end
+			
+
+	self.Level = self.Level + 1
+
 	-- Battlefield flags
 
 	local fX, fY, fToken
@@ -5866,7 +5914,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 		end
 	end
 
-	if combatName then
+	if false and combatName then
 
 		if not self.InCombat or combatDist > 35 then
 			self.TrackPlayer = combatName
