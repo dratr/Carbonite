@@ -105,18 +105,6 @@ Map.MapInfo = {
 		TileX = 15,
 		TileY = 10,
 	},
-	[12] = {
-		Name = L["Nazjatar"],
-		FileName = "nazjatar",
-		X = -1300,
-		Y = 3400,
-		TileX = 15,
-		TileY = 10,
-		ZXOff = -1300 + -317.35,
-		ZYOff = 3000 + -157.43,
-		ZWOff = -153.59,
-		ZHOff = -98,10
-	},	
         [12] = {
                 Name = L["Nazjatar"],
                 FileName = "nazjatar",
@@ -1685,7 +1673,10 @@ Map.MapWorldInfo = {
 		Y = -736.25,
 		Name = L["Mechagon Island"],
 		Overlay = "mechagonisland"
-        },		
+        },
+	[1527] = {
+		BaseMap = 249,
+	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
 		1,
@@ -11459,7 +11450,7 @@ end
 function Nx.Map.DumpZone()
     -- getting scale: C_Map.GetMapArtLayers(mapid)
     -- take maxzoom and multiply by 2 for every additional zoom
-    local mapid = 1355
+    local mapid = WorldMapFrame:GetMapID()
     local zone = C_Map.GetMapInfo(mapid)
     print(string.format("\t[\"%s\"] = {", zone.name))
     local expInfo = C_MapExplorationInfo.GetExploredMapTextures(mapid)
