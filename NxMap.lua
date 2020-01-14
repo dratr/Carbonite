@@ -8974,7 +8974,8 @@ function Nx.Map:InitTables()
 		 [8] = {627,630,634,641,646,650,672,680,750,739,790},
 		 [9] = {830,882,885},
 		 [10] = {862,863,864,1165},
-		 [11] = {895,896,942,1161},
+		 [11] = {895,896,942,1161,1462},
+		 [12] = {1355},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623,837,907,1339,1366}, -- 1134 spbrawl
 		 [100] = {},
 	}
@@ -8991,7 +8992,7 @@ function Nx.Map:InitTables()
 	self.ZoneOverlays["lakewintergrasp"]["lakewintergrasp"] = "0,0,1024,768"
 
 	-- Support maps with multiple level
-	self.ContCnt = 11
+	self.ContCnt = 12
 
 --	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
 	for k, v in pairs (worldInfo) do
