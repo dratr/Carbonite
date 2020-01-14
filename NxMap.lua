@@ -1231,6 +1231,17 @@ function Nx.Map:Create (index)
 	m.Arch:SetBorderTexture( [[Interface\WorldMap\UI-ArchaeologyBlob-Outside]] )
 	m.Arch:SetBorderScalar( 0.15 )
 
+
+	local HBDPins = LibStub:GetLibrary("HereBeDragons-Pins-1.0", true)
+	if m.MMOwn and HandyNotes and HBDPins then
+		local mmAddonOverlay = CreateFrame("Frame", "NxMinimapAddonOverlay", m.TextScFrm:GetScrollChild())
+		mmAddonOverlay.GetZoom = Minimap.GetZoom
+		mmAddonOverlay.SetZoom = Minimap.SetZoom
+		mmAddonOverlay:Hide()
+		m.MMAddonOverlayFrm = mmAddonOverlay
+		HBDPins:SetMinimapObject(mmAddonOverlay)
+	end
+
 	Nx.Map.RMapId = 9000		-- Safe default
 	Nx.Map.UpdateMapID = 9000
 
@@ -2572,6 +2583,13 @@ function Nx.Map:MinimapUpdateEnd()
 		self:MinimapUpdateDetachedFrms (self.Level + 1)
 		self.Level = self.Level + 2
 	end
+	
+	if self.MMAddonOverlayFrm then
+		self.MMAddonOverlayFrm:SetFrameLevel(self.Level)
+		self.Level = self.Level + 1
+		self.MMAddonOverlayFrm:SetAllPoints(Minimap);
+		self.MMAddonOverlayFrm:Show()
+	end
 
 	if self.MMZoomChanged then
 
@@ -2601,6 +2619,9 @@ function Nx.Map:MinimapUpdateEnd()
 --		if Gatherer then
 --			Nx.Timer:Start ("Gatherer", .1, self, self.OnGathererTimer)
 --		end
+		if self.MMAddonOverlayFrm then
+			HandyNotes:UpdateMinimap()
+		end
 	end
 
 	-- Transfer window and minimap scale
