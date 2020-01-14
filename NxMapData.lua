@@ -10701,13 +10701,6 @@ Map.MiniMapBlks = {
 		Map.NazjatarBlks,
 		2824,
 		28, 24,
-		Map.MapWorldInfo[1355].X + Map.MapInfo[12].X - 106.85, Map.MapWorldInfo[1355].Y + Map.MapInfo[12].Y - 295.44,
-		"World\\Minimaps\\nazjatar"
-	},	
-	[12] = {
-		Map.NazjatarBlks,
-		2824,
-		28, 24,
 		Map.MapWorldInfo[1355].X + Map.MapInfo[12].X - 106.85, Map.MapWoorldInfo[1355].Y + Map.MapInfo[12].Y - 295.44,
 		"World\\Minimaps\\nazjatar"
 	},
