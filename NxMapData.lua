@@ -117,7 +117,15 @@ Map.MapInfo = {
 		ZWOff = -153.59,
 		ZHOff = -98,10
 	},	
-	[90] = {
+        [12] = {
+                Name = L["Nazjatar"],
+                FileName = "nazjatar",
+                X = -1300,
+                Y = 3400,
+                TileX = 15,
+                TileY = 10,
+        },
+ 	[90] = {
 		Name = "BG",
 		X = 2000,
 		Y = 200,
@@ -10698,6 +10706,13 @@ Map.MiniMapBlks = {
 		Map.MapWorldInfo[1355].X + Map.MapInfo[12].X - 106.85, Map.MapWorldInfo[1355].Y + Map.MapInfo[12].Y - 295.44,
 		"World\\Minimaps\\nazjatar"
 	},	
+	[12] = {
+		Map.NazjatarBlks,
+		2824,
+		28, 24,
+		Map.MapWorldInfo[1355].X + Map.MapInfo[12].X - 106.85, Map.MapWoorldInfo[1355].Y + Map.MapInfo[12].Y - 295.44,
+		"World\\Minimaps\\nazjatar"
+	},
 	[94] = {
 		Map.BloodelfMapBlks,
 		4111,
@@ -11449,5 +11464,29 @@ function SetupMigrationData()
         end
     end
 end
+
+function Nx.Map.DumpZone()
+    -- getting scale: C_Map.GetMapArtLayers(mapid)
+    -- take maxzoom and multiply by 2 for every additional zoom
+    local mapid = 1355
+    local zone = C_Map.GetMapInfo(mapid)
+    print(string.format("\t[\"%s\"] = {", zone.name))
+    local expInfo = C_MapExplorationInfo.GetExploredMapTextures(mapid)
+    local n = #expInfo
+    for i=1,n do
+            local fileIds = expInfo[i].fileDataIDs
+            local fileStr = ""
+            for j=1,#fileIds do
+                    if j ~= 1 then
+                            fileStr = fileStr .. ","
+                    end
+                    fileStr = fileStr .. fileIds[j]
+            end
+            print(string.format("\t\t[\"%s\"] = \"%d,%d,%d,%d\"%s", fileStr, ex
+    end
+    print("},")
+end
+
+
 -------------------------------------------------------------------------------
 -- EOF
