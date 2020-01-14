@@ -1413,19 +1413,17 @@ Map.MapWorldInfo = {
 		City = true,
 		Overlay = "ashranhordefactionhub",
 	},
-	[625] = {
-		Scale = 1.75,
-		ScaleAdjust = 0.94,
-		MMOutside = true,
-		X = -980,
-		Y = 110,
+	[627] = {
+		Scale = 1.8,
+		X = -983,
+		Y = 112,
 		Overlay = "dalaran7",
 		MapBaseName = "Dalaran7010_",
 		City = true,
 		MapLevel = 1,		
 	},
-	[627] = {
-		BaseMap = 625,
+	[625] = {
+		BaseMap = 627,
 		City = true,
 		MapLevel = 1,
 	},
