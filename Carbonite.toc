@@ -1,6 +1,6 @@
 ## Interface: 80200
 ## Title: Carbonite Maps @project-version@
-## Version: @project-version@
+## Version: 1
 ## Author: No one
 ## Notes: Released Under GPL
 ## DefaultState: Enabled
