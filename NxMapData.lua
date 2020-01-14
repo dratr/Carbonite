@@ -86,8 +86,8 @@ Map.MapInfo = {
 	[9] = {
 		Name = L["Argus"],
 		FileName = "Argus",
-		X = 4250,
-		Y = -1800,
+		X = 7400, -- 4250,
+		Y = -6200, -- -1800,
 	},
 	[10] = {
 		Name = L["Zandalar"],
@@ -117,7 +117,15 @@ Map.MapInfo = {
 		ZWOff = -153.59,
 		ZHOff = -98,10
 	},	
-	[90] = {
+        [12] = {
+                Name = L["Nazjatar"],
+                FileName = "nazjatar",
+                X = -1300,
+                Y = 3400,
+                TileX = 15,
+                TileY = 10,
+        },
+ 	[90] = {
 		Name = "BG",
 		X = 2000,
 		Y = 200,
@@ -549,6 +557,20 @@ Map.MapWorldInfo = {
 		Y = 0,
 		Short = "AB",
 	},
+	[837] = {
+		Name = L["Arathi Basin"],
+		Scale = 3.5124998474121,
+		X = -16000,
+		Y = 0,
+		Short = "AB",
+	},
+--	[1144] = {
+--		Name = L["Shado-Pan Brawl"],
+--		Scale = 3.5124998474121,
+--		X = -16000,
+--		Y = 0,
+--		Short = "SPB",
+--	},
 	[94] = {
 		Scale = 9.85,
 		X = 897.5,
@@ -1392,13 +1414,14 @@ Map.MapWorldInfo = {
 		Overlay = "ashranhordefactionhub",
 	},
 	[625] = {
-		Scale = 1.8,
-		X = -983,
-		Y = 112,
+		Scale = 1.75,
+		ScaleAdjust = 0.94,
+		MMOutside = true,
+		X = -980,
+		Y = 110,
 		Overlay = "dalaran7",
 		MapBaseName = "Dalaran7010_",
 		City = true,
-		Alpha = .85,
 		MapLevel = 1,		
 	},
 	[627] = {
@@ -1456,23 +1479,62 @@ Map.MapWorldInfo = {
 		 Overlay = "suramar",
 		 Name = L["Suramar"],
 	},
+	[726] = {
+		Scale = 2.6666,
+		ScaleAdjust = 1 / 1.275,
+		MMOutside = true,
+		X = 640,
+		Y = 120,
+		Name = L["The Maelstrom"],		-- Shaman order hall
+		Overlay= "maelstromshaman",
+		City = true,
+	},
+	[734] = {
+		Scale = 0.9,
+		ScaleAdjust = 0.63,
+		MMOutside = true,
+		X = 170,
+		Y = 0,
+		Name = L["Hall of the Guardian"],	-- Mage order hall
+		Overlay = "mageclassshrine",
+		City = true,
+	},
+	[739] = {
+		Scale = 1.63,
+		ScaleAdjust = 1 / 1.05,
+		MMOutside = true,
+		X = -1121,
+		Y = -934,
+		Name = L["Trueshot Lodge"],		-- Hunter order hall
+		Overlay = "trueshotlodge",
+		City = true,
+	},
 	[750] = {
-		Scale = 1.8625,
-		X = -960,
-		Y = -879.5832,
-		Explored = true,
-		City = true,		
-		Overlay = "thundertotem",
+		Scale = 1.75,
+		ScaleAdjust = 0.94,
+		MMOutside = true,
+		X = -965,
+		Y = -870,
+		Overlay = "ThunderTotem",
+		City = true,
+		MapLevel = 1,		
+	},
+	[790] = {
+		Scale = 5.75,
+		X = -1220,
+		Y = 510,
+		Overlay = "azsunadungeonexterior",
+		Name = L["Eye of Azshara"],
 	},
 	[830] = {
-		Scale = 7.429172,
-		X = -754.584,
-		Y = -530.834,
+		Scale = 7.4,
+		X = -300,
+		Y = -300,
 		Name = L["Krokuun"],
 		Overlay = "argussurface",
-		MId = 830,
-		XOff = -100,
-		YOff = 100,
+ 		MId = 830,
+		XOff = 0,
+		YOff = 0,
 	},
 	[862] = {
 		X = -1142.0832,
@@ -1505,26 +1567,26 @@ Map.MapWorldInfo = {
 		Y = -1095,
 		Scale = 26.212498
 	},	
-	[882] = {
-		 Scale = 6.5166,
-		 X = -2309.16,
-		 Y = -1324.584,
-		 Name = L["Mac'Aree"],
+ 	[882] = {
+		 Scale = 6.8,
+		 X = -550,
+		 Y = -1300,
+ 		 Name = L["Mac'Aree"],
 		 Overlay = "argusmacaree",		 
-		 MId = 882,
-		 XOff = 1400,
-		 YOff = 500,
-	},
-	[885] = {
-		 Scale = 6.80006,
-		 X = -2255.84,
-		 Y = 357.916,
-		 Name = L["Antoran Wastes"],
+ 		 MId = 882,
+		 XOff = 0,
+		 YOff = 0,
+ 	},
+ 	[885] = {
+		 Scale = 6.8,
+		 X = -1900,
+		 Y = -700,
+ 		 Name = L["Antoran Wastes"],
 		 Overlay = "arguscore",
-		 MId = 885,
-		 XOff = 800,
-		 YOff = -900,
-	},
+ 		 MId = 885,
+		 XOff = 0,
+		 YOff = 0,
+ 	},
 	[895] = {
 		X = -997.0832,
 		Y = -462.0834,
@@ -1540,9 +1602,16 @@ Map.MapWorldInfo = {
 		Overlay = "drustvar"
 	},
 	[905] = {
-		 Scale = 13.53196,
-		 X = -1457.47,
-		 Y = -852.756,
+		Scale = 37.67636,
+		X = -2599.2078125,
+		Y = -1864.271875,
+	},
+	[907] = {
+		Name = L["Seething Shore"],
+		Scale = 2.2916666259766,
+		X = -16000,
+		Y = 1000,
+		Short = "SS",
 	},
 	[942] = {
 		X = -668.75,
@@ -1569,16 +1638,34 @@ Map.MapWorldInfo = {
 		MapLevel = 1,		
 	},
 	[1165] = {
-		Scale = 5.629172,
-		X = -442.084,
-		Y = 52.5,
+		Scale = 6,
+		MMOutside = true,
+		X = -462,
+		Y = 30,
 		TileX = 15,
 		TileY = 10,
+		ZXOff = -5.91,
+		ZYOff = -5.57,
 		Overlay = "ZuldazarCity_Exterior",
 		MapBaseName = "ZuldazarCity_Exterior",
 		City = true,
 		Alpha = .85,
-		MapLevel = 1,		
+		MapLevel = 1,
+	},
+--XXX wrong id here
+	[1186] = {
+		Name = L["Seething Shore"],
+		Scale = 2.2916666259766,
+		X = -16000,
+		Y = 1000,
+		Short = "SS",
+	},
+	[1339] = {
+		Name = L["Warsong Gulch"],
+		Scale = 2.2916666259766,
+		X = -16000,
+		Y = 1000,
+		Short = "WG",
 	},
 	[1355] = {
 		Scale = 8.529166,
@@ -1587,13 +1674,20 @@ Map.MapWorldInfo = {
 		Name = L["Nazjatar"],
 		Overlay = "nazjatar",
 	},
+	[1366] = {
+		Name = L["Arathi Basin"],
+		Scale = 3.5124998474121,
+		X = -16000,
+		Y = 0,
+		Short = "AB",
+	},
 	[1462] = {
 		Scale = 4.675,
 		X = -1324.166,
 		Y = -736.25,
 		Name = L["Mechagon Island"],
-		Overlay = "mechagonisland"		
-	},
+		Overlay = "mechagonisland"
+        },		
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
 		1,
@@ -3446,7 +3540,6 @@ Map.ZoneOverlays = {
 		["2033783,2033794,2033796,2033797,2033798,2033799,2033800,2033801,2033802,2033784,2033785,2033786,2033787,2033788,2033789,2033790,2033791,2033792,2033793,2033795"] = "1772,1199,953,1223",
 		["2033803,2033813,2033814,2033815,2033816,2033817,2033818,2033819,2033820,2033804,2033805,2033806,2033807,2033808,2033809,2033810,2033811,2033812"] = "802,0,1306,678",
 	},
-	
 	["nazjatar"] = {
 		["3020529,3020540,3020542,3020543,3020544,3020545,3020546,3020547,3020548,3020530,3020531,3020532,3020533,3020534,3020535,3020536,3020537,3020538,3020539,3020541"] = "729,315,815,1065",
 		["3020549,3020550,3020551,3020552,3020553,3020554,3020555,3020556,3020557"] = "1876,340,648,650",
@@ -3477,6 +3570,12 @@ Map.ZoneOverlays = {
 		["3022412,3022423,3022430,3022431,3022432,3022433,3022434,3022435,3022436,3022413,3022414,3022415,3022416,3022417,3022418,3022419,3022420,3022421,3022422,3022424,3022425,3022426,3022427,3022428,3022429"] = "2791,121,1049,1055",
 		["3022437,3022448,3022459,3022467,3022468,3022469,3022470,3022471,3022472,3022438,3022439,3022440,3022441,3022442,3022443,3022444,3022445,3022446,3022447,3022449,3022450,3022451,3022452,3022453,3022454,3022455,3022456,3022457,3022458,3022460,3022461,3022462,3022463,3022464,3022465,3022466"] = "46,978,1424,1511",
 	}
+	-- local zone = GetMapInfo()
+	-- print(string.format("[\"%s\"] = ", zone))
+	-- local n = GetNumMapOverlays() for i=1,n do
+	-- local fn, c, d, a, b = GetMapOverlayInfo(i)
+	-- print(string.format("[\"%s\"] = \"%d,%d,%d,%d\"", fn, a, b, c, d))  
+	-- end
 }
 
 --------
@@ -10579,6 +10678,13 @@ Map.MiniMapBlks = {
 		Map.MapWorldInfo[619].X + Map.MapInfo[8].X + 380, Map.MapWorldInfo[619].Y + Map.MapInfo[8].Y - 147.8,
 		"World\\Minimaps\\Troll Raid"
 	},
+	[9] = {
+		Map.BrokenIslesMapBlks,
+		1117,
+		11, 17,
+		Map.MapWorldInfo[905].X + Map.MapInfo[9].X + 0, Map.MapWorldInfo[905].Y + Map.MapInfo[9].Y - 0,
+		"World\\Minimaps\\Troll Raid"
+	},
 	[10] = {
 		Map.ZandalarMapBlks,
 		1616,
@@ -10600,6 +10706,13 @@ Map.MiniMapBlks = {
 		Map.MapWorldInfo[1355].X + Map.MapInfo[12].X - 106.85, Map.MapWorldInfo[1355].Y + Map.MapInfo[12].Y - 295.44,
 		"World\\Minimaps\\nazjatar"
 	},	
+	[12] = {
+		Map.NazjatarBlks,
+		2824,
+		28, 24,
+		Map.MapWorldInfo[1355].X + Map.MapInfo[12].X - 106.85, Map.MapWoorldInfo[1355].Y + Map.MapInfo[12].Y - 295.44,
+		"World\\Minimaps\\nazjatar"
+	},
 	[94] = {
 		Map.BloodelfMapBlks,
 		4111,
@@ -11351,5 +11464,29 @@ function SetupMigrationData()
         end
     end
 end
+
+function Nx.Map.DumpZone()
+    -- getting scale: C_Map.GetMapArtLayers(mapid)
+    -- take maxzoom and multiply by 2 for every additional zoom
+    local mapid = 1355
+    local zone = C_Map.GetMapInfo(mapid)
+    print(string.format("\t[\"%s\"] = {", zone.name))
+    local expInfo = C_MapExplorationInfo.GetExploredMapTextures(mapid)
+    local n = #expInfo
+    for i=1,n do
+            local fileIds = expInfo[i].fileDataIDs
+            local fileStr = ""
+            for j=1,#fileIds do
+                    if j ~= 1 then
+                            fileStr = fileStr .. ","
+                    end
+                    fileStr = fileStr .. fileIds[j]
+            end
+            print(string.format("\t\t[\"%s\"] = \"%d,%d,%d,%d\"%s", fileStr, ex
+    end
+    print("},")
+end
+
+
 -------------------------------------------------------------------------------
 -- EOF
