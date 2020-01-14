@@ -11480,7 +11480,7 @@ function Nx.Map.DumpZone()
                     end
                     fileStr = fileStr .. fileIds[j]
             end
-            print(string.format("\t\t[\"%s\"] = \"%d,%d,%d,%d\"%s", fileStr, ex
+            print(string.format("\t\t[\"%s\"] = \"%d,%d,%d,%d\"%s", fileStr, expInfo[i].offsetX, expInfo[i].offsetY, expInfo[i].textureWidth, expInfo[i].textureHeight, i == n and "" or ","))
     end
     print("},")
 end
