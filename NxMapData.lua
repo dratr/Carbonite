@@ -1677,6 +1677,9 @@ Map.MapWorldInfo = {
 	[1527] = {
 		BaseMap = 249,
 	},
+	[1530] = {
+		BaseMap = 390,
+	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
 		1,
