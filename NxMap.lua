@@ -5300,9 +5300,9 @@ end
 
 function Nx.Map:SwitchRealMap (id)
 	if self:IsInstanceMap (id) then
-		self:SetInstanceMap (id)			-- Turn it on
+--		self:SetInstanceMap (id)			-- Turn it on
 		
-		self:GotoCurrentZone()
+--		self:GotoCurrentZone()
 		--self:CenterMap (id)
 		--[[local s = 100
 		self.Scale = s
