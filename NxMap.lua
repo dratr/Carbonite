@@ -4161,10 +4161,6 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 				local mapId = map:GetCurrentMapId()
 				if map:IsInstanceMap (rid) then
-					if not Nx.Map.InstanceInfo[rid] then		-- Don't convert WotLK/Cata instances
-						local lrid = Nx.Map.MapWorldInfo[rid].EntryMId
-						if lrid ~= nil then rid = lrid end
-					end
 					local lvl = Nx.Map:GetCurrentMapDungeonLevel()
 					if lvl ~= map.InstLevelSet then
 						map.MapId = 0	-- Force set
