@@ -805,7 +805,7 @@ Map.MapWorldInfo = {
 	},
 	[125] = {
 		Name = L["Dalaran"],
-		Scale = 1.6589 / 1.3,
+		Scale = 1.695,
 		X = -200.95,
 		Y = -1199.17260156,
 		Overlay = "dalaran",
@@ -1353,8 +1353,8 @@ Map.MapWorldInfo = {
 		City = true,
 		MMOutside = true,
 		Explored = true,
-		MapBaseName = "garrisonffhorde_tier",
-		Overlay = "garrisonffhorde_tier1",
+--		MapBaseName = "garrisonffhorde_tier",
+--		Overlay = "garrisonffhorde_tier1",
 	},
 	[586] = {
 		BaseMap = 585
@@ -1402,7 +1402,7 @@ Map.MapWorldInfo = {
 		Overlay = "ashranhordefactionhub",
 	},
 	[627] = {
-		Scale = 1.8,
+		Scale = 0.65,
 		X = -983,
 		Y = 112,
 		Overlay = "dalaran7",
