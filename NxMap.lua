@@ -4288,7 +4288,7 @@ function Nx.Map:UpdateWorld()
 	end]]--
 	if dungeonLevel>0 then texName = texName..dungeonLevel.."_" end
 	if winfo.MapBaseName and not winfo.Garrison then texName = winfo.MapBaseName end
-	if winfo.Garrison and not isMicro then
+--[[	if winfo.Garrison and not isMicro then
 		local level, mapname, x, y = C_Garrison.GetGarrisonInfo(LE_GARRISON_TYPE_6_0)
 		if not level then
 			level = "1"
@@ -4296,6 +4296,7 @@ function Nx.Map:UpdateWorld()
 		texPath = "Interface\\WorldMap\\" .. winfo.MapBaseName .. level.."\\"
 		texName = winfo.MapBaseName .. level
 	end
+]]--
 	
 	if self.Debug then
 		Nx.prt ("%d Map UpdateWorld %d", self.Tick, self:GetCurrentMapId())
@@ -9112,7 +9113,10 @@ function Nx.Map:InitTables()
 			winfo.QAchievementId = winfo.QAchievementIdH				-- Copy Horde Id to generic Id
 		end
 		if winfo.BaseMap then
-			Nx.Map.MapWorldInfo[k] = Nx.Map.MapWorldInfo[winfo.BaseMap]
+			--Nx.Map.MapWorldInfo[k] = Nx.Map.MapWorldInfo[winfo.BaseMap]
+			for k2, v2 in pairs(Nx.Map.MapWorldInfo[winfo.BaseMap]) do
+				winfo[k2] = v2
+			end
 			Nx.Map.MapWorldInfo[k].RBaseMap = k
 			Nx.Map.MapWorldInfo[k].OBaseMap = winfo.BaseMap
 		end
@@ -9752,7 +9756,7 @@ function Nx.Map:IsInstanceMap (mapId)
 	if winfo[mapId].BaseMap then
 	   mapId = Nx.Map.MapWorldInfo[mapId].BaseMap
 	end	
-	if winfo[mapId].Instance then
+	if winfo[mapId].Instance or winfo[mapId].Garrison then
 		return true
 	end
 	return false
