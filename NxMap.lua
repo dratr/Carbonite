@@ -159,7 +159,7 @@ NXMapOptsMapsDefault = 	{
 	},
 }
 
-function GetBattlefieldVehicleInfo(n, uiMapID)
+local function GetBattlefieldVehicleInfo(n, uiMapID)
 	local v = C_PvP.GetBattlefieldVehicleInfo(n, uiMapID)	
 	if not v then
 		return
