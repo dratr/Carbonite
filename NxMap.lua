@@ -167,6 +167,16 @@ local function GetBattlefieldVehicleInfo(n, uiMapID)
 	return v.x, v.y, v.name, v.isOccupied, v.atlas, v.facing, v.isPlayer, v.isAlive, v.shouldDrawBelowPlayerBlips, v
 end
 
+function GetCurrencyInfo(_type)
+	local v = C_CurrencyInfo.GetCurrencyInfo(_type)
+	if not v then
+		return
+	end
+	
+	return v.name, v.quantity, v.iconFileID, v.quantityEarnedThisWeek, v.maxWeeklyQuantity, v.maxQuantity, v.discovered, v.quality, v
+end
+
+
 --------
 -- Init map stuff
 
