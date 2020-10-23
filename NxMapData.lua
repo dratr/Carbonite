@@ -1676,8 +1676,8 @@ Map.MapWorldInfo = {
 	},
 	[1409] = {
 		Scale = 6.7625,
-		X = 4150,
-		Y = -2850,
+		X = 470,
+		Y = -2220,
 		Name = L["Exile's Reach"],
 		Overlay = "npe",
 		Explored = true,
