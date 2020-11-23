@@ -168,6 +168,16 @@ local function GetBattlefieldVehicleInfo(n, uiMapID)
 end
 
 function GetCurrencyInfo(_type)
+
+	if _type == 390 then
+		_type = Constant.Currency.Conquest
+	end
+
+	if _type == 392 then
+		_type = Constant.Currency.Honor
+	end
+
+
 	local v = C_CurrencyInfo.GetCurrencyInfo(_type)
 	if not v then
 		return
