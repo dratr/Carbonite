@@ -197,7 +197,6 @@ function Nx.Map:Init()
 	plFaction = strsub (plFaction, 1, 1)
 	self.PlFactionNum = plFaction == "A" and 0 or 1
 	self.PlFactionShort = plFaction == "A" and "Ally" or "Horde"
-	Nx.Map.Indoors = false
 	Nx.Map.InBugged = false
 	Nx.Map.InInstance = false
 	
@@ -2441,7 +2440,7 @@ function Nx.Map:MinimapUpdate()
 
 	local al = lOpts.NXMMAlpha
 
-	local indoors = IsIndoors() or Nx.Map.Indoors
+	local indoors = IsIndoors()
 	local resting = IsResting()
 	local indoorChange = self.Indoors ~= indoors
 	self.Indoors = indoors
@@ -3741,14 +3740,12 @@ function Nx.Map:OnEvent (event, ...)
 			Nx.Map:SetToCurrentZone()
 		end
 	elseif event == "ZONE_CHANGED" then
-		Nx.Map.Indoors = false
 		Nx.Map.NInstMapId = nil
 		Nx.Map:HideNewPlrFrame()
 		if not WorldMapFrame:IsShown() then
 			Nx.Map:SetToCurrentZone()
 		end
 	elseif event == "ZONE_CHANGED_INDOORS" then
-		Nx.Map.Indoors = true
 		Nx.Map.NInstMapId = nil
 		Nx.Map:HideNewPlrFrame()
 		if not WorldMapFrame:IsShown() then
