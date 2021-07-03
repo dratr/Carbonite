@@ -9084,6 +9084,13 @@ function Nx.Map:UpdateInstanceMap()
 		local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
 		local textures = C_Map.GetMapArtLayerTextures(mapId, layerIndex)
 		
+		local th = 2
+		local tw = 3
+		if #textures == 150 then
+			th = 10
+			tw = 15
+		end
+
 		if info then
 		--for n = 1, #info, 3 do
 			local imgI = 1
@@ -9091,9 +9098,9 @@ function Nx.Map:UpdateInstanceMap()
 			local offx = 0		-- info[n] * .04 * 1002 / 1024
 			local offy = 0		-- info[n + 1] * .03 * 668 / 768
 
-			for by = 0, 2 do
+			for by = 0, th do
 
-				for bx = 0, 3 do
+				for bx = 0, tw do
 
 					local sc = 1
 					local f = self:GetIconNI(10)
@@ -9137,8 +9144,8 @@ function Nx.Map:UpdateInstanceMap()
 			f:SetScrollChild(c)
 			
 			--Nx.prt("%s", info[is_n + 1])
-			local w = 4 * (1002 / 1024)  -- (info[is_n + 1] * .04 * 1002 / 1024) * -1
-			local h = 3 * (668 / 768) -- (info[is_n + 1] * .03 * 668 / 768) * -1
+			local w = tw * (1002 / 1024)  -- (info[is_n + 1] * .04 * 1002 / 1024) * -1
+			local h = th * (668 / 768) -- (info[is_n + 1] * .03 * 668 / 768) * -1
 			local dungeonLevel = Nx.Map:GetCurrentMapDungeonLevel() > 0 and Nx.Map:GetCurrentMapDungeonLevel() -1 or 0
 			
 			local x1, y1, x2, y2 = self:ClipFrameINST (f, wx, wy + (h * dungeonLevel), w, h, true)
@@ -11526,8 +11533,9 @@ function Nx.Map.MoveWorldMap()
 	local layers = C_Map.GetMapArtLayers(curId)
 	local layerInfo = layers[1]
 	local rows, cols = math.ceil(layerInfo.layerHeight / layerInfo.tileHeight), math.ceil(layerInfo.layerWidth / layerInfo.tileWidth)
+	local ntiles = rows * cols
 	
-	if not Nx.Map.WMDF then
+	if not Nx.Map.WMDF or #Nx.Map.WMDT ~= ntiles then
 		Nx.Map.WMDF = CreateFrame("Frame", "WMDF")		
 		Nx.Map.WMDF:SetFrameStrata("BACKGROUND")
 		Nx.Map.WMDT = {}
@@ -11538,18 +11546,25 @@ function Nx.Map.MoveWorldMap()
 				Nx.Map.WMDT[index] = Nx.Map.WMDF:CreateTexture("WMDT" .. index)
 			end
 		end		
-		Nx.Map.WMDT[1]:SetPoint("TOPLEFT")
-		Nx.Map.WMDT[2]:SetPoint("TOPLEFT","WMDT1","TOPRIGHT")
-		Nx.Map.WMDT[3]:SetPoint("TOPLEFT","WMDT2","TOPRIGHT")
-		Nx.Map.WMDT[4]:SetPoint("TOPLEFT","WMDT3","TOPRIGHT")
-		Nx.Map.WMDT[5]:SetPoint("TOPLEFT","WMDT1","BOTTOMLEFT")
-		Nx.Map.WMDT[6]:SetPoint("TOPLEFT","WMDT5","TOPRIGHT")
-		Nx.Map.WMDT[7]:SetPoint("TOPLEFT","WMDT6","TOPRIGHT")
-		Nx.Map.WMDT[8]:SetPoint("TOPLEFT","WMDT7","TOPRIGHT")
-		Nx.Map.WMDT[9]:SetPoint("TOPLEFT","WMDT5","BOTTOMLEFT")
-		Nx.Map.WMDT[10]:SetPoint("TOPLEFT","WMDT9","TOPRIGHT")
-		Nx.Map.WMDT[11]:SetPoint("TOPLEFT","WMDT10","TOPRIGHT")
-		Nx.Map.WMDT[12]:SetPoint("TOPLEFT","WMDT11","TOPRIGHT")
+	end
+	if not Nx.Map.WMDF.ntiles or Nx.Map.WMDF.ntiles ~= ntiles then
+		local prevrow_ul = Nx.Map.WMDF
+		local refpt = "TOPLEFT"
+		for j = 1, rows do
+			local prev = prevrow_ul
+			prevrow_ul = nil
+			for i = 1,cols do
+				local index = (j - 1) * cols + i
+				Nx.Map.WMDT[index]:SetPoint("TOPLEFT", prev, refpt)
+				prev = Nx.Map.WMDT[index]
+				if prevrow_ul == nil then
+					prevrow_ul = prev
+					refpt = "TOPRIGHT"
+				end
+			end
+			refpt = "BOTTOMLEFT"
+		end
+		Nx.Map.WMDF.ntiles = ntiles
 	end
 	Nx.Map.WMDF:SetParent(Nx.Map:GetMap(1).Frm)
 	Nx.Map.WMDF:SetFrameLevel(20)
@@ -11559,9 +11574,12 @@ function Nx.Map.MoveWorldMap()
 	
 	local textures = C_Map.GetMapArtLayerTextures(curId,1)
 	
-	for i=1, 12 do
-		Nx.Map.WMDT[i]:SetWidth(Nx.Map.WMDF:GetWidth() / 3.9)		
-		Nx.Map.WMDT[i]:SetHeight(Nx.Map.WMDF:GetHeight() / 2.6)
+	local tw = Nx.Map.WMDF:GetWidth() / (cols - .1)
+	local th = Nx.Map.WMDF:GetHeight() / (rows - .4)
+--	print("MMT ", curId, ntiles, rows, cols, #textures)
+	for i=1, ntiles do
+		Nx.Map.WMDT[i]:SetWidth(tw)
+		Nx.Map.WMDT[i]:SetHeight(th)
 		Nx.Map.WMDT[i]:SetTexture(textures[i])
 	end	
 	Nx.Map.WMDF:SetAllPoints()

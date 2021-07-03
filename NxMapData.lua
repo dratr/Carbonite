@@ -12305,9 +12305,14 @@ function Nx.Map:GetZoneInfo (mapid)
 		winfo[mapid].X = ((left * -1) / 5)
 		winfo[mapid].Y = ((top * -1) / 5)
 		winfo[mapid].Scale = ((right * -1) + left) / 500
+		local textures = C_Map.GetMapArtLayerTextures(mapid, 1)
+		if textures and #textures == 150 then
+			winfo[mapid].TileX = 15
+			winfo[mapid].TileY = 10
+		end
 	end	
 	local mapinfo = C_Map.GetMapInfo(mapid)
-	if mapinfo and winfo[mapid] and (mapinfo.mapType == 5 or mapinfo.mapType == 4) then				
+	if mapinfo and winfo[mapid] and (mapinfo.mapType == 5 or mapinfo.mapType == 4 or mapinfo.mapType == 6) then
 		winfo[mapid].Instance = true
 	end
 end
