@@ -1802,6 +1802,14 @@ Map.MapWorldInfo = {
 		Overlay = "oribos_arbiter",
 		MapBaseName = "oribos_arbiter",
 	},
+	[1707] = {
+		Name = L["Elysian Hold"],
+		Scale = 1.695,
+		X = 850,
+		Y = -236,
+		City = true,
+		Alpha = .85,
+	},
 	[1961] = {
 		X = -908,
 		Y = -865,
