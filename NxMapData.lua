@@ -13306,7 +13306,10 @@ Map.MiniMapBlks = {
 		Map.ShadowlandsBlks,
 		1416,
 		14, 16,
-		Map.MapWorldInfo[1550].X + Map.MapInfo[13].X + 594.95, Map.MapWorldInfo[1550].Y + Map.MapInfo[13].Y - 440,
+		--594.95 440
+		--274 896
+		Map.MapWorldInfo[1550].X + Map.MapInfo[13].X + 273.45,
+		Map.MapWorldInfo[1550].Y + Map.MapInfo[13].Y - 894.5, --894
 		"World\\Minimaps\\2222"
 	},	
 	[94] = {
