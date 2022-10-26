@@ -725,7 +725,7 @@ function Nx.Map:Create (index)
 	f:SetFrameStrata ("LOW")
 	f:SetWidth (m.W)
 	f:SetHeight (m.H)
-	f:SetMinResize (50, 50)
+	f:SetResizeBounds (50, 50)
 
 	local t = f:CreateTexture()
 	t:SetColorTexture (0, 0, 0, .2)
@@ -1379,7 +1379,7 @@ function Nx.Map:CreateLocationTip()
 --	f.NxInst = self
 	self.LocTipFrm = f
 
-	f:SetClampedToScreen()
+	f:SetClampedToScreen(true)
 
 --	f:ClearAllPoints()
 --	f:SetPoint ("BOTTOMLEFT", 0, 0)
@@ -2312,12 +2312,12 @@ function Nx.Map:MinimapNodeGlowInit (reset)
 			local t = NXMinimapBlinkerFrame:CreateTexture (nil, "OVERLAY")
 			t:SetAllPoints()
 			t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MMOIcons")
-			t:SetNonBlocking(true)
+			t:SetBlockingLoadsRequested(false)
 			--t:Hide()
 			local t = NXMinimapBlinkerFrame:CreateTexture (nil, "OVERLAY")
 			t:SetAllPoints()
 			t:SetTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MMOIconsG")
-			t:SetNonBlocking(true)
+			t:SetBlockingLoadsRequested(false)
 			--t:Hide()
 		end
 		GlowLetter = ""

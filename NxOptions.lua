@@ -229,20 +229,6 @@ local function generalOptions()
 						Nx.Opts:NXCmdCamForceMaxDist()
 					end,
 				},
-				hideGriff = {
-					order = 8,
-					type = "toggle",
-					width = "full",
-					name = L["Hide Action Bar Gryphon Graphics"],
-					desc = L["Attempts to hide the two gryphons on your action bar."],
-					get = function()
-						return Nx.db.profile.General.GryphonsHide
-					end,
-					set = function()
-						Nx.db.profile.General.GryphonsHide = not Nx.db.profile.General.GryphonsHide
-						Nx.Opts:NXCmdGryphonsUpdate()
-					end,
-				},
 			},
 		}
 	end
@@ -4534,7 +4520,6 @@ function Nx.Opts:InitTimer()
 
 --	Nx.prt ("dog2 %s", GetCVar ("dog") or "nil")
 
-	self:NXCmdGryphonsUpdate()
 	self:NXCmdCamForceMaxDist()
 
 	OptsQO = Nx:ScheduleTimer(self.QuickOptsTimer,2,self)
@@ -4666,16 +4651,6 @@ function Nx.Opts:NXCmdCamForceMaxDist()
 
 	if Nx.db.profile.General.CameraForceMaxDist then
 		SetCVar ("cameraDistanceMaxZoomFactor", 2.6)
-	end
-end
-
-function Nx.Opts:NXCmdGryphonsUpdate()
-	if Nx.db.profile.General.GryphonsHide then
-		MainMenuBarArtFrame.LeftEndCap:Hide()
-		MainMenuBarArtFrame.RightEndCap:Hide()
-	else
-		MainMenuBarArtFrame.LeftEndCap:Show()
-		MainMenuBarArtFrame.RightEndCap:Show()
 	end
 end
 
@@ -4865,7 +4840,6 @@ function Nx.Opts:NXCmdResetOpts()
 		Nx.Quest:OptsReset()
 		Nx.Quest:CalcWatchColors()
 		self:NXCmdHUDChange()
-		self:NXCmdGryphonsUpdate()
 		self:NXCmdInfoWinUpdate()
 		self:NXCmdUIChange()
 	end
