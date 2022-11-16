@@ -23,14 +23,24 @@
 </UnitPositionFrame>
 
 <Slider name="NxSliderFrame" orientation="HORIZONTAL" virtual="true" inherits="BackdropTemplate">
-	<KeyValues>
-		<KeyValue key="backdropInfo" value="NX_SLIDERFRAME_INFO" type="global"/>
-	</KeyValues>
 	<ThumbTexture file="Interface\Buttons\UI-SliderBar-Button-Horizontal">
 		<Size>
 			<AbsDimension x="32" y="32" />
 		</Size>
 	</ThumbTexture>
+	<Scripts>
+		<OnLoad inherit="prepend">
+			self:SetBackdrop({
+			    bgFile = "Interface\Buttons\UI-SliderBar-Background",
+			    edgeFile = "Interface\Buttons\UI-SliderBar-Border",
+			    tile = true,
+			    tileEdge = true,
+			    tileSize = 8,
+			    edgeSize = 8,
+			    insets = { left = 3, right = 3, top = 6, bottom = 6 },
+			})
+		</OnLoad>
+	</Scripts>
 </Slider>
 
 <ScrollFrame name="NxQuestDetails" inherits="UIPanelScrollFrameTemplate" virtual="true">

@@ -492,7 +492,7 @@ end
 
 function Nx.Util_str2a (colors)
 	local arr = { Nx.Split("|",colors) }
-	return arr[4]
+	return tonumber(arr[4])
 end
 
 ---------------------------------------------------------------------------------------
@@ -7939,7 +7939,8 @@ function NxWatchListItem_OnUpdate(self, elapsed)
 	local rangeTimer = self.rangeTimer;
 	if ( rangeTimer ) then
 		rangeTimer = rangeTimer - elapsed;
-		if ( rangeTimer <= 0 ) then
+		--XXX
+		if ( rangeTimer <= 0 and self.questLogIndex) then
 			local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(self.questLogIndex);
 			if ( not charges or charges ~= self.charges ) then
 				--ObjectiveTracker_Update(OBJECTIVE_TRACKER_UPDATE_MODULE_QUEST);

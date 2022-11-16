@@ -1455,20 +1455,6 @@ local function mapConfig ()
 								Nx.Opts:NXCmdMMButUpdate()
 							end,
 						},
-						MMButShowWorldMap = {
-							order = 13,
-							type = "toggle",
-							width = "full",
-							name = L["Enable World Map Minimap Button"],
-							desc = L["Shows the world map minimap button in the button panel"],
-							get = function()
-								return Nx.db.profile.MiniMap.ButShowWorldMap
-							end,
-							set = function()
-								Nx.db.profile.MiniMap.ButShowWorldMap = not Nx.db.profile.MiniMap.ButShowWorldMap
-								Nx.Opts:NXCmdMMButUpdate()
-							end,
-						},
 					},
 				},
 			},

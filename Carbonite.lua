@@ -49,16 +49,6 @@ Nx.VERSIONVENDORV		= .56				-- Visited vendor data
 Nx.VERSIONTransferData		= .1				-- Transfer data
 Nx.TXTBLUE			= "|cffc0c0ff"
 
-NX_SLIDERFRAME_INFO = {
-    bgFile = "Interface\Buttons\UI-SliderBar-Background",
-    edgeFile = "Interface\Buttons\UI-SliderBar-Border",
-    tile = true,
-    tileEdge = true,
-    tileSize = 8,
-    edgeSize = 8,
-    insets = { left = 3, right = 3, top = 6, bottom = 6 },
-};
-
 -- Keybindings
 BINDING_HEADER_Carbonite	= "|cffc0c0ff" .. L["Carbonite"] .. "|r"
 BINDING_NAME_NxMAPTOGORIGINAL	= L["NxMAPTOGORIGINAL"]

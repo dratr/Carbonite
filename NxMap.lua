@@ -2234,6 +2234,7 @@ function Nx.Map:MinimapOnEnter (motion)
 		this.NxMap = map
 		map.IconOnEnter (self, motion)
 	end
+	map.MMFrm:OnEnter(motion)
 end
 
 function Nx.Map:MinimapOnLeave (motion)
@@ -2244,6 +2245,7 @@ function Nx.Map:MinimapOnLeave (motion)
 		this.NxMap = map
 		map.IconOnLeave (self, motion)
 	end
+	map.MMFrm:OnLeave(motion)
 end
 
 function Nx.Map:MinimapButtonShowUpdate (justNameplate)
@@ -2252,7 +2254,6 @@ function Nx.Map:MinimapButtonShowUpdate (justNameplate)
 		"NXMiniMapBut", "ButShowCarb",
 		"GameTimeFrame", "ButShowCalendar",
 		"TimeManagerClockButton", "ButShowClock",
-		"MiniMapWorldMapButton", "ButShowWorldMap",
 	}
 
 	for n = 1, #t, 2 do
@@ -5135,7 +5136,7 @@ function Nx.Map:Update (elapsed)
 							f.texture:SetAtlas(atlasIcon)
 						else
 							f.texture:SetTexture ("Interface\\Minimap\\POIIcons")
-							txX1, txX2, txY1, txY2 = GetPOITextureCoords (txIndex)
+							txX1, txX2, txY1, txY2 = C_Minimap.GetPOITextureCoords (txIndex)
 							f.texture:SetTexCoord (txX1 + .003, txX2 - .003, txY1 + .003, txY2 - .003)
 							f.texture:SetVertexColor (1, 1, 1, 1)
 						end
@@ -5196,7 +5197,7 @@ function Nx.Map:Update (elapsed)
 				f.texture:SetWidth(16)
 				f.texture:SetHeight(16)
 				f.texture:SetTexture("Interface/Minimap/POIIcons")
-				local x1, x2, y1, y2 = GetPOITextureCoords(cPOI.textureIndex)
+				local x1, x2, y1, y2 = C_Minimap.GetPOITextureCoords(cPOI.textureIndex)
 				self:ClipFrameZ (f, pX * 100, pY * 100, 32, 32, 0)
 				f.texture:SetTexCoord(x1, x2, y1, y2)
 			end
@@ -5636,7 +5637,7 @@ function Nx.Map:DrawContinentsPOIs()
 		return
 	end
 	
-	local getCoords = GetPOITextureCoords
+	local getCoords = C_Minimap.GetPOITextureCoords
 
 	for cont = 1, self.ContCnt do
 
@@ -8549,7 +8550,7 @@ function Nx.Map:GetIconWQ (levelAdd)
 
 		f.Texture = f:CreateTexture(f:GetName().."Texture", "BACKGROUND");
 
-		f.Glow = f:CreateTexture(f:GetName().."Glow", "BACKGROUND", -2);
+		f.Glow = f:CreateTexture(f:GetName().."Glow", "BACKGROUND", nil, -2);
 		f.Glow:SetSize(50, 50);
 		f.Glow:SetPoint("CENTER");
 		f.Glow:SetTexture("Interface/WorldMap/UI-QuestPoi-IconGlow.tga");
@@ -8561,18 +8562,18 @@ function Nx.Map:GetIconWQ (levelAdd)
 		f.CriteriaMatchRing:SetAtlas("worldquest-emissary-ring", true)
 		f.CriteriaMatchRing:SetPoint("CENTER", 0, 0)
 		
-		f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY", 2);
+		f.SelectedGlow = f:CreateTexture(f:GetName().."SelectedGlow", "OVERLAY", nil, 2);
 		f.SelectedGlow:SetBlendMode("ADD");
 		f.SelectedGlow:SetSnapToPixelGrid(false)
 		f.SelectedGlow:SetTexelSnappingBias(0)
 		
-		f.CriteriaMatchGlow = f:CreateTexture(f:GetName().."CriteriaMatchGlow", "BACKGROUND", -1);
+		f.CriteriaMatchGlow = f:CreateTexture(f:GetName().."CriteriaMatchGlow", "BACKGROUND", nil, -1);
 		f.CriteriaMatchGlow:SetAlpha(.6);
 		f.CriteriaMatchGlow:SetBlendMode("ADD");
 		f.CriteriaMatchGlow:SetSnapToPixelGrid(false)
 		f.CriteriaMatchGlow:SetTexelSnappingBias(0)
 		
-		f.SpellTargetGlow = f:CreateTexture(f:GetName().."SpellTargetGlow", "OVERLAY", 1);
+		f.SpellTargetGlow = f:CreateTexture(f:GetName().."SpellTargetGlow", "OVERLAY", nil, 1);
 		f.SpellTargetGlow:SetAtlas("worldquest-questmarker-abilityhighlight", true);
 		f.SpellTargetGlow:SetAlpha(.6);
 		f.SpellTargetGlow:SetBlendMode("ADD");
@@ -10678,10 +10679,21 @@ function Nx.Map.Dock:MinimapOwnInit()
 	local mm = _G["Minimap"]
 
 	local mmOwnerNames = {
-		"NXMiniMapBut","GameTimeFrame","TimeManagerClockButton","MiniMapWorldMapButton","MiniMapMailFrame","MiniMapTracking","MiniMapVoiceChatFrame","QueueStatusMinimapButton","MiniMapInstanceDifficulty","GarrisonLandingPageMinimapButton",
+		"NXMiniMapBut",
+		"QueueStatusButton",
+		"ExpansionLandingPageMinimapButton",
+	}
+	local mmOwnerFrames = {
+		GameTimeFrame,
+		TimeManagerClockButton,
+		MinimapCluster.MailFrame,
+		MinimapCluster.Tracking,
+		MinimapCluster.InstanceDifficulty.Instance,
 	}
 
 	local f = _G["MinimapBackdrop"]	-- Add so it gets ignored
+	map.MMOwnedFrms[f] = 0
+	f = Minimap.ZoomHitArea	-- Add so it gets ignored
 	map.MMOwnedFrms[f] = 0
 
 	self.MMFrms = {}
@@ -10689,7 +10701,6 @@ function Nx.Map.Dock:MinimapOwnInit()
 	for k, name in ipairs (mmOwnerNames) do
 		local f = _G[name]
 		if f then
-
 			map.MMOwnedFrms[f] = 0
 			tinsert (self.MMFrms, f)
 
@@ -10697,6 +10708,18 @@ function Nx.Map.Dock:MinimapOwnInit()
 
 			if name == "MiniMapTracking" then
 				f:Show()
+			end
+		end
+	end
+
+	if not Nx.db.profile.MiniMap["ShowOldNameplate"] then
+		for k, f in ipairs (mmOwnerFrames) do
+			if f then
+				map.MMOwnedFrms[f] = 0
+				tinsert (self.MMFrms, f)
+
+				f:SetParent (self.Win.Frm)
+
 			end
 		end
 	end
@@ -11583,7 +11606,7 @@ function Nx.Map.MoveWorldMap()
 		Nx.Map.WMDT[i]:SetTexture(textures[i])
 	end	
 	Nx.Map.WMDF:SetAllPoints()
-	NXWorldMapUnitPositionFrame:SetParent("WMDF")
+	NXWorldMapUnitPositionFrame:SetParent(WMDF)
 	NXWorldMapUnitPositionFrame:SetAllPoints()
 	NXWorldMapUnitPositionFrame:SetFrameLevel(40)
 	Nx.Map:NXWorldMapUnitPositionFrame_UpdatePlayerPins()
