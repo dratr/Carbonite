@@ -1841,16 +1841,28 @@ function Nx.Map:InitFrames()
 			0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,
 		},
 		{
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
-			1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+		},
+		{
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 		},
 	}
 
@@ -2254,6 +2266,7 @@ function Nx.Map:MinimapButtonShowUpdate (justNameplate)
 		"NXMiniMapBut", "ButShowCarb",
 		"GameTimeFrame", "ButShowCalendar",
 		"TimeManagerClockButton", "ButShowClock",
+--		"MiniMapWorldMapButton", "ButShowWorldMap",
 	}
 
 	for n = 1, #t, 2 do
@@ -6943,6 +6956,9 @@ function Nx.Map:UpdateOverlay (mapId, bright, noUnexplored)
 	
 	local layerIndex = WorldMapFrame:GetCanvasContainer():GetCurrentLayerIndex();
 	local layers = C_Map.GetMapArtLayers(mapId);
+	if layers == nil then
+	    return
+	end
 	local layerInfo = layers[layerIndex];
 	local TILE_SIZE_WIDTH = layerInfo.tileWidth;
 	local TILE_SIZE_HEIGHT = layerInfo.tileHeight;
@@ -7535,11 +7551,15 @@ function Nx.Map:ClipMMW (frm, bx, by, w, h)
 	local bh = h * scale
 	local clipW = self.MapW
 	local clipH = self.MapH
+	-- compute offset of player on current rendering of world map
+	-- in screen pixels
 	local x = (bx - self.MapPosXDraw) * scale + clipW * .5
 	local y = (by - self.MapPosYDraw) * scale + clipH * .5
 
+        -- left corner of minimap, in pixels
 	local vx0 = x - bw * .5
 	local vx1 = vx0
+	-- right corner, pixels
 	local vx2 = vx0 + bw
 
 	if vx1 < 0 or vx2 > clipW then
@@ -9238,7 +9258,7 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {12,13,101,113,948,424,572,619,905,875,876,1355,1550,-1},
+		 [0] = {12,13,101,113,948,424,572,619,905,875,876,1355,1550,1978,-1},
 		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,86,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468},
 		 [2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,203,204,205,210,217,218,224,241,244,245,425,427,465,467,469},
 		 [3] = {100,102,104,105,107,108,109,111},
@@ -9251,7 +9271,8 @@ function Nx.Map:InitTables()
 		 [10] = {862,863,864,1165},
 		 [11] = {895,896,942,1161,1169,1462},
 		 [12] = {1355},
-		 [13] = {1670,1671,1672,1673,1525,1533,1536,1543,1565,1707,1961,1970},
+		 [13] = {1670,1671,1672,1673,1525,1533,1536,1543,1565,1707,1961,1970,2112},
+		 [14] = {2022,2023,2024,2025,2107,2151},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623,837,907,1339,1366},		  -- 1134 spbrawl		 
 		 [100] = {},
 	}
@@ -9268,7 +9289,7 @@ function Nx.Map:InitTables()
 	self.ZoneOverlays["lakewintergrasp"]["lakewintergrasp"] = "0,0,1024,768"
 
 	-- Support maps with multiple level
-	self.ContCnt = 13
+	self.ContCnt = 14
 
 --	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
 	for k, v in pairs (worldInfo) do
@@ -10630,6 +10651,9 @@ end
 -------------------------------------------------------------------------------
 --
 
+function Nx.Map.Dock.Layout()
+end
+
 function Nx.Map.Dock:Create()
 
 --PAIDS!
@@ -10650,6 +10674,10 @@ function Nx.Map.Dock:Create()
 
 	local win = Nx.Window:Create ("NxMapDock", nil, nil, nil, 1, 1, nil, true)
 	self.Win = win
+	-- This is a dumb hack to support reparenting MailFrame
+	-- in the dock as blizzard code expects its parent frame to
+	-- have a Layout function
+	win.Frm.Layout = Nx.Map.Dock.Layout
 
 	win:SetBGAlpha (0, 1)
 
@@ -10686,7 +10714,7 @@ function Nx.Map.Dock:MinimapOwnInit()
 	local mmOwnerFrames = {
 		GameTimeFrame,
 		TimeManagerClockButton,
-		MinimapCluster.MailFrame,
+		MinimapCluster.IndicatorFrame.MailFrame,
 		MinimapCluster.Tracking,
 		MinimapCluster.InstanceDifficulty.Instance,
 	}

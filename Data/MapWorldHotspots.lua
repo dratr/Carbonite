@@ -128,7 +128,8 @@ Nx.MapWorldHotspots2 = {
 -- Alli and horde cities - need? what about ashran?
 		[588] = "000000fffffe",
 		[622] = "000000fffffe",
-		[624] = "000000fffffe"
+		[624] = "000000fffffe",
+		[2112] = "000000fffffe",
 }
 
 -------------------------------------------------------------------------------

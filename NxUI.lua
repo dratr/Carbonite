@@ -7939,7 +7939,6 @@ function NxWatchListItem_OnUpdate(self, elapsed)
 	local rangeTimer = self.rangeTimer;
 	if ( rangeTimer ) then
 		rangeTimer = rangeTimer - elapsed;
-		--XXX
 		if ( rangeTimer <= 0 and self.questLogIndex) then
 			local link, item, charges, showItemWhenComplete = GetQuestLogSpecialItemInfo(self.questLogIndex);
 			if ( not charges or charges ~= self.charges ) then

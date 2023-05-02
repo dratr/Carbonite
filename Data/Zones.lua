@@ -538,6 +538,13 @@ Nx.Zones = {
     [1707] = L["Elysian Hold - Archon's Rise"] .. "|50|60|2|13||",
     [1961] = L["Korthia"] .. "|60|60|2|13||",
     [1970] = L["Zereth Mortis"] .. "|60|60|2|13||",
+    [2022] = L["The Waking Shores"] .. "|60|70|2|14||",
+    [2023] = L["Ohn'ahran Plains"] .. "|60|70|2|14||",
+    [2024] = L["The Azure Span"] .. "|60|70|2|14||",
+    [2025] = L["Thaldraszus"] .. "|60|70|2|14||",
+    [2107] = L["The Forbidden Reach"] .. "|60|70|2|14||",
+    [2112] = L["Valdrakken"] .. "|60|70|2|14||",
+    [2151] = L["The Forbidden Reach"] .. "|60|70|2|14||",
 }
 
 
