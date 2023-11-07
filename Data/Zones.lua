@@ -546,6 +546,7 @@ Nx.Zones = {
     [2112] = L["Valdrakken"] .. "|60|70|2|14||",
     [2133] = L["Zaralek Cavern"] .. "|70|70|2|14||",
     [2151] = L["The Forbidden Reach"] .. "|70|70|2|14||",
+    [2200] = L["Emerald Dream"] .. "|70|70|2|14||",
 }
 
 
