@@ -1603,8 +1603,9 @@ function Nx.Map:UpdateWorldMap()
 
 	local f = self.WorldMapFrm
 
-	for factionIndex = 1, GetNumFactions() do
-		local name, description, standingId, bottomValue, topValue, earnedValue, atWarWith,canToggleAtWar, isHeader, isCollapsed, hasRep, isWatched, isChild = GetFactionInfo(factionIndex)
+	for factionIndex = 1, C_Reputation.GetNumFactions() do
+		local factionData = C_Reputation.GetFactionDataByIndex(factionIndex)
+		local name = factionData["name"]
 		if (name == L["Operation: Shieldwall"]) or (name == L["Dominance Offensive"]) then
 			self.MapWorldInfo[857].Overlay = "krasarang_terrain1"
 		end
@@ -4294,7 +4295,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 	if Nx.db.profile.Map.ShowTitle2 then
 
 		local s = GetSubZoneText()
-		local pvpType = GetZonePVPInfo()
+		local pvpType = C_PvP.GetZonePVPInfo()
 		if pvpType then
 			s = s .. " (" .. pvpType .. ")"
 		end
