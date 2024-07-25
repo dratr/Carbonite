@@ -8550,7 +8550,7 @@ function Nx.Map:GetIconWQ (levelAdd)
 	local f = frms[pos]
 	if not f then
 
-		f = CreateFrame ("Button", "NxIconWQ"..pos, self.Frm)
+		f = CreateFrame ("Button", "NxIconWQ"..pos, self.Frm, "WorldMap_WorldQuestPinTemplate")
 		frms[pos] = f
 		f.NxMap = self
 
