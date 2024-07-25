@@ -4019,23 +4019,6 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		end
 	end
 	
-	if _G['ReputationFrame'] then
-		if not _G['ReputationFrame'].CarbFix then
-			_G['ReputationFrame'].CarbFix = true
-			_G['ReputationFrame']:UnregisterEvent('QUEST_LOG_UPDATE')
-			_G['ReputationFrame']:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
-			_G['ReputationFrame']:HookScript('OnShow', function(self, event, ...)
-				_G['ReputationFrame']:UnregisterEvent('QUEST_LOG_UPDATE')
-				_G['ReputationFrame']:RegisterEvent('UNIT_QUEST_LOG_CHANGED')
-			end)
-			_G['ReputationFrame']:HookScript('OnEvent', function(self, event, ...)
-				if ( event == "UPDATE_FACTION" or event == "LFG_BONUS_FACTION_ID_UPDATED" or event == "UNIT_QUEST_LOG_CHANGED" ) then
-					ReputationFrame_Update();
-				end
-			end)
-		end
-	end
-	
 	local Nx = Nx
 
 	local profileTime = GetTime()
