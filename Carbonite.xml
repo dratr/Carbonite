@@ -130,7 +130,7 @@
 		</OnUpdate>
 	</Scripts>
 </Button>
-<Button name="NxWatchListItem" inherits="SecureActionButtonTemplate" virtual="true">
+<Button name="NxWatchListItem" inherits="SecureActionButtonTemplate" mixin="QuestObjectiveItemButtonMixin" virtual="true">
 	<Size x="26" y="26" />
 		<Layers>
 			<Layer level="ARTWORK">
@@ -154,11 +154,7 @@
 			<Cooldown parentKey="Cooldown" inherits="CooldownFrameTemplate" />
 		</Frames>
 		<Scripts>
-			<OnLoad function="QuestObjectiveItem_OnLoad" />
-			<OnEvent function="QuestObjectiveItem_OnEvent" />
 			<OnUpdate function="NxWatchListItem_OnUpdate" />
-			<OnShow function="QuestObjectiveItem_OnShow" />
-			<OnHide function="QuestObjectiveItem_OnHide" />
 			<OnEnter>
 				GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
 				GameTooltip:SetQuestLogSpecialItem(self.questLogIndex);
