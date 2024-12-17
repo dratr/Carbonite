@@ -1605,8 +1605,7 @@ function Nx.Map:UpdateWorldMap()
 
 	for factionIndex = 1, C_Reputation.GetNumFactions() do
 		local factionData = C_Reputation.GetFactionDataByIndex(factionIndex)
-		local name = factionData["name"]
-		if (name == L["Operation: Shieldwall"]) or (name == L["Dominance Offensive"]) then
+		if (factionData ~= nil and ((factionData["name"] == L["Operation: Shieldwall"]) or (factionData["name"] == L["Dominance Offensive"]))) then
 			self.MapWorldInfo[857].Overlay = "krasarang_terrain1"
 		end
 	end
@@ -1864,6 +1863,18 @@ function Nx.Map:InitFrames()
 			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 			0,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
 			0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+		},
+		{
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
+			0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,
 		},
 	}
 
@@ -4241,14 +4252,14 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 		title = title..format (" Time %.4f Mem %d %.4f", t, mem, memdif)
 	end
 
-	if GetCVar ("scriptProfile") == "1" then
+--	if GetCVar ("scriptProfile") == "1" then
 
-		UpdateAddOnCPUUsage()
+--		UpdateAddOnCPUUsage()
 
-		title = title..format (" |cffffffffCPU %6.3f %6.3f", GetAddOnCPUUsage ("CARBONITE"), GetScriptCPUUsage())
+--		title = title..format (" |cffffffffCPU %6.3f %6.3f", GetAddOnCPUUsage ("CARBONITE"), GetScriptCPUUsage())
 
-		ResetCPUUsage()
-	end
+--		ResetCPUUsage()
+--	end
 
 	--
 
@@ -4452,7 +4463,7 @@ function Nx.Map:Update (elapsed)
 	local mapId = Nx.Map:GetCurrentMapAreaID()
 	self.Cont, self.Zone = self:IdToContZone (mapId)
 
-	Nx.InSanctuary = GetZonePVPInfo() == "sanctuary"
+	Nx.InSanctuary = C_PvP.GetZonePVPInfo() == "sanctuary"
 
 	local doSetCurZone
 	local mapChange
@@ -5803,7 +5814,8 @@ function Nx.Map:UpdateGroup (plX, plY)
 
 				local inactive
 				for n = 1, MAX_TARGET_DEBUFFS do
-					if UnitDebuff (unit, n) == "Inactive" then
+					local debuffData = C_UnitAuras.GetDebuffDataByIndex (unit, n)
+					if debuffData ~= nil and debuffData.name == "Inactive" then
 						inactive = true
 						per = 0
 						break
@@ -9242,7 +9254,7 @@ function Nx.Map:InitTables()
 	--V403
 
 	Nx.Map.MapZones = {
-		 [0] = {12,13,101,113,948,424,572,619,905,875,876,1355,1550,1978,-1},
+		 [0] = {12,13,101,113,948,424,572,619,905,875,876,1355,1550,1978,2274,-1},
 		 [1] = {1,7,10,57,62,63,64,65,66,69,70,71,76,77,78,80,81,83,85,86,88,89,97,103,106,198,199,249,327,338,460,461,462,463,468},
 		 [2] = {14,15,17,18,21,22,23,25,26,27,32,36,37,42,47,48,49,50,51,52,56,84,87,90,94,95,110,122,124,179,201,202,203,204,205,210,217,218,224,241,244,245,425,427,465,467,469},
 		 [3] = {100,102,104,105,107,108,109,111},
@@ -9257,6 +9269,7 @@ function Nx.Map:InitTables()
 		 [12] = {1355},
 		 [13] = {1670,1671,1672,1673,1525,1533,1536,1543,1565,1707,1961,1970},
 		 [14] = {2022,2023,2024,2025,2107,2112,2133,2151,2200},
+		 [15] = {2248,2213,2214,2215,2255,2339},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623,837,907,1339,1366},		  -- 1134 spbrawl		 
 		 [100] = {},
 	}
@@ -9273,7 +9286,7 @@ function Nx.Map:InitTables()
 	self.ZoneOverlays["lakewintergrasp"]["lakewintergrasp"] = "0,0,1024,768"
 
 	-- Support maps with multiple level
-	self.ContCnt = 14
+	self.ContCnt = 15
 
 --	continentNums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 90 }
 	for k, v in pairs (worldInfo) do
