@@ -137,6 +137,14 @@ Map.MapInfo = {
 	        X = 250,
 	        Y = 5550,
         },
+        [16] = {
+                Name = L["Siren Isle"],
+                FileName = "sirenisle",
+                X = 250 + 1495,
+                Y = 5550 + 140,
+                TileX = 15,
+                TileY = 10,
+        },
  	[90] = {
 		Name = "BG",
 		X = 2000,
@@ -2001,6 +2009,13 @@ Map.MapWorldInfo = {
 		MapBaseName = "dornogal",
 		City = true,
 		MMOutside = true,
+	},
+	[2369] = {
+		Scale = 3.1042,
+		X = 0,
+		Y = 0,
+		Name = L["Siren Isle"],
+		Overlay = "sirenisle",
 	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
@@ -15146,6 +15161,9 @@ Map.KhazAlgarBlks = {
 	[4336] = 4918572
 }
 
+Map.SirenIsleBlks = {
+}
+
 Map.NPEBlks = {
 	[2038] = 3541361,
 	[2039] = 3541367,
@@ -16885,6 +16903,15 @@ Map.MiniMapBlks = {
 		14, 13,
 		Map.MapWorldInfo[2274].X + Map.MapInfo[15].X - 402,
 		Map.MapWorldInfo[2274].Y + Map.MapInfo[15].Y - 215,
+		"World\\Minimaps\\2601"
+	},	
+	[15] = {
+		Map.SirenIsleBlks,
+		-- XXX
+		1413,
+		14, 13,
+		Map.MapWorldInfo[2369].X + Map.MapInfo[16].X - 0,
+		Map.MapWorldInfo[2369].Y + Map.MapInfo[16].Y - 0,
 		"World\\Minimaps\\2601"
 	},	
 	[94] = {
