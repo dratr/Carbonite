@@ -1,0 +1,3 @@
+Select icon regions
+Colors->Hue-Saturation
+Increase Lightness ~33.5, Saturation ~15
