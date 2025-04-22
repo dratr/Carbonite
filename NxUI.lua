@@ -31,7 +31,7 @@ function Nx:UIInit()
 	self.QualityColors = qc
 
 	qc[-1] = "ffffffff"
-	for n = 0, 10 do		-- Blizz max is currently 7
+	for n = 0, 8 do		-- Blizz max is currently 8
 		local r, g, b, hex = C_Item.GetItemQualityColor (n)
 		qc[n] = hex
 	end
