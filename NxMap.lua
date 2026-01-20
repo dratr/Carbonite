@@ -2085,7 +2085,7 @@ function Nx.Map:MinimapOwnInit()
 		return
 	end
 	mm:SetMaskTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MinimapMask")
-	self:MinimapNodeGlowInit()
+--	self:MinimapNodeGlowInit()
 	Nx.Map:MinimapButtonShowUpdate (true)
 
 	mm:SetClampedToScreen (true)

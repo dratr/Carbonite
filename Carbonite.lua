@@ -1276,9 +1276,9 @@ function Nx:NXOnUpdate (elapsed)
 	end
 
 	local s = GameTooltipTextLeft1:GetText()
-	if s then
+	if s and not InCombatLockdown() then
 
-		if Nx.Tick % 4 == 1 and GameTooltipTextLeft1:IsVisible() and #s > 5 then
+		if Nx.Tick % 4 == 1 and GameTooltipTextLeft1:IsVisible() then
 			if Nx.TooltipLastDiffText ~= s or Nx.TooltipLastDiffNumLines ~= GameTooltip:NumLines() then
 				if Nx.Quest then
 					Nx.Quest:TooltipProcess()

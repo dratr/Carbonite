@@ -1443,18 +1443,9 @@ function Nx.Com:OnUpdate (elapsed)
 		x = max (min (self.PlyrX,  .999), 0) * 0xfff
 		y = max (min (self.PlyrY, 9.999), 0) * 0xfff
 
-		local h = UnitHealth ("player")
-		if UnitIsDeadOrGhost ("player") then
-			h = 0
-		end
+		local h = 0
 		local hm = UnitHealthMax ("player")
-		hm = hm == 0 and 1 or hm
-		local hper = h / hm * 20
-		if hper > 0 then
-			hper = max (hper, 1)
-		end
-		hper = floor (hper + .5)
-
+		local hper = 0
 		local plyrLvl = min (UnitLevel ("player"), 90)	-- 93 or above makes 0x80+ illegal chat char
 
 		-- Target info
@@ -1487,16 +1478,8 @@ function Nx.Com:OnUpdate (elapsed)
 			if UnitIsDeadOrGhost ("target") then
 				h = 0
 			end
-			local hm = max (UnitHealthMax ("target"), 1)
-			local hper = h / hm * 20
-			if hper > 0 then				-- Alive?
-				hper = max (hper, 1)
-			end
-			hper = min (floor (hper + .5), 20)
-
---			Nx.prt ("THealth %s", hper)
-
-			-- tLvl will cause a "\" at lvl 57 which could form a bad escape char with tCls
+			local hm = 0
+			local hper = 0
 
 			tStr = format ("%c%c%c%c%c%s", tType+35, tLvl+35, tCls+35, hper+35, #targetName+35, targetName)
 		end
