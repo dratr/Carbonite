@@ -199,7 +199,6 @@ local defaults = {
 			CaptureEnable = false,
 			CaptureShare = true,
 			ChatMsgFrm = "",
-			GryphonsHide = true,
 			LoginHideVer = true,
 			TitleOff = true,
 			TitleSoundOn = false,
