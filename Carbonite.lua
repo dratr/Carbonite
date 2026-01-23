@@ -903,8 +903,6 @@ function Nx:InitEvents()
 	AuctionAssist:RegisterEvent("AUCTION_HOUSE_CLOSED", "OnAuction_house_closed")
 	AuctionAssist:RegisterEvent("REPLICATE_ITEM_LIST_UPDATE", "OnAuction_item_list_update")
 		
-	Guide:RegisterEvent("MERCHANT_SHOW", "OnMerchant_show")
-	Guide:RegisterEvent("MERCHANT_UPDATE", "OnMerchant_update")
 	Guide:RegisterEvent("GOSSIP_SHOW", "OnGossip_show")
 	Guide:RegisterEvent("TRAINER_SHOW", "OnTrainer_show")
 
