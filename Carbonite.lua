@@ -585,7 +585,6 @@ function Nx:OnInitialize()
 		UIErrorsFrame:AddMessage (s)
 		Nx.NXVerOld = true
 	end
-	Nx.TooltipLastDiffNumLines = 0
 	Nx.db = LibStub("AceDB-3.0"):New("CarbData", defaults, true)
 	tinsert(Nx.dbs,Nx.db)
 	Nx.db.RegisterCallback(self, "OnProfileChanged", "OnProfileChanged")
@@ -937,10 +936,6 @@ end
 --------
 
 function Nx:OnUpdate_mouseover_unit (event, ...)	
-	if Nx.Quest then
-		Nx.Quest:TooltipProcess (true)
-	end
-
 	local data, guid, id, typ = Nx:UnitDGet ("mouseover")
 	if guid then
 
@@ -1099,6 +1094,9 @@ function Nx:OnPlayer_regen_enabled()
 end
 
 function Nx:OnUnit_spellcast_sent (event, arg1, arg2, arg3, arg4)	
+	if (issecretvalue(arg2)) then
+		return
+	end
 	if arg1 == "player" then
 		local Nx = Nx
 		if Nx:IsGathering(arg2) == "Herb Gathering" then
@@ -1266,36 +1264,6 @@ function Nx:NXOnUpdate (elapsed)
 	
 	Nx.Proc:OnUpdate (elapsed)
 
-	-- Tooltip stuff
-
-	if not GameTooltip:IsVisible() then
-		Nx.TooltipLastDiffText = nil
-	end
-
-	local s = GameTooltipTextLeft1:GetText()
-	if s and not InCombatLockdown() then
-
-		if Nx.Tick % 4 == 1 and GameTooltipTextLeft1:IsVisible() then
-			if Nx.TooltipLastDiffText ~= s or Nx.TooltipLastDiffNumLines ~= GameTooltip:NumLines() then
-				if Nx.Quest then
-					Nx.Quest:TooltipProcess()
-				end
-			end
-		end
-		Nx.TooltipLastText = s
-	end
-
-	if Nx.TooltipOwner then
-		if not Nx.TooltipOwner:IsVisible() then
-			if GameTooltip:IsOwned (Nx.TooltipOwner) then
-				GameTooltip:Hide()
-			end
-			Nx.TooltipOwner = nil
-		end
-	end
-
-	--
-
 	if self.NetSendPos then
 
 		local t = GetTime()
@@ -1321,7 +1289,6 @@ function Nx:NXOnUpdate (elapsed)
 		Nx.InCombat = combat
 	end
 
-	Nx.Com:OnUpdate (elapsed)
 	Nx.Map:MainOnUpdate (elapsed)
 
 	if Nx.Quest then

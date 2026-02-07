@@ -5762,11 +5762,14 @@ function Nx.Map:UpdateGroup (plX, plY)
 --PAIDS!
 			inCombat = UnitAffectingCombat (unit)
 --PAIDE!
-			local h = UnitHealth (unit)
-			if UnitIsDeadOrGhost (unit) then
+			local h, m
+			h = UnitHealth (unit)
+			if issecretvalue(h) or UnitIsDeadOrGhost (unit) then
 				h = 0
+				m = 1
+			else
+				m = UnitHealthMax (unit)
 			end
-			local m = UnitHealthMax (unit)
 			local per = min (Nx.Util_NanToZero(h / m), 1)			-- Can overflow?
 
 			if per > 0 then
@@ -5868,68 +5871,6 @@ function Nx.Map:UpdateGroup (plX, plY)
 					end
 				end
 
-				-- Show target info
-
-				local unitTarget = unit.."target"
-				local tName = UnitName (unitTarget)
-				local tEnPlayer
-
-				if tName then
-
-					local tLvl = UnitLevel (unitTarget)
-					local tCls = UnitClass (unitTarget) or ""
-					if tName == tCls then
-						tCls = ""
-					end
-
-					local th = UnitHealth (unitTarget)
-					if UnitIsDeadOrGhost (unitTarget) then
-						th = 0
-					end
-					local tm = max (UnitHealthMax (unitTarget), 1)
-					local per = min (Nx.Util_NanToZero(th / tm), 1)
-
---					Nx.prt ("H %d", th)
-
-					local f = self:GetIconNI (2)
-					local sc = self.ScaleDraw
-
-					if UnitIsFriend ("player", unitTarget) then
-
-						-- Horizontal green bar
-						self:ClipFrameTL (f, wx - 9 / sc, wy - 2 / sc, 16 * per / sc, 1 / sc)
-						f.texture:SetColorTexture (0, 1, 0, 1)
-
-						tStr = format ("\n|cff80ff80%s %d %s %.f", tName, tLvl, tCls, th)
-
-						if not UnitIsPlayer (unitTarget) then	-- NPC?
-							tStr = tStr .. "%"
-						end
-					else
-						self:ClipFrameTL (f, wx - 9 / sc, wy - 9 / sc, 1 / sc, 15 * per / sc)
-
-						if UnitIsPlayer (unitTarget) then
-
-							tEnPlayer = true
-							tStr = format ("\n|cffff4040%s %d %s %.f%%", tName, tLvl, tCls, th)
-							f.texture:SetColorTexture (redGlow, .1, 0, 1)
-
-						elseif UnitIsEnemy ("player", unitTarget) then
-
-							tStr = format ("\n|cffffff40%s %d %s %.f%%", tName, tLvl, tCls, th)
-
-							if Nx:UnitIsPlusMob (unitTarget) then
-								f.texture:SetColorTexture (1, .4, 1, 1)
-							else
-								f.texture:SetColorTexture (1, 1, 0, 1)
-							end
-
-						else
-							tStr = format ("\n|cffc0c0ff%s %d %s %.f%%", tName, tLvl, tCls, th)
-							f.texture:SetColorTexture (.7, .7, 1, 1)
-						end
-					end
-				end
 --PAIDE!
 				local lvl = UnitLevel (unit)
 				local qStr = Nx.Com:GetPlyrQStr (name)
@@ -8956,10 +8897,6 @@ function Nx.Map:IconOnUpdateTooltip()
 		local str = Nx.Split ("~", f.NxTip)
 		Nx:SetTooltipText (str .. Nx.Map.PlyrNamesTipStr)
 
-		if Nx.Quest then
-			Nx.Quest:TooltipProcess()
-		end
-
 --		Nx.prt ("IconOnUpdateTooltip")
 	end
 end
@@ -10783,7 +10720,7 @@ function Nx.Map.Dock:MinimapOwnInit()
 					v:SetSnapToPixelGrid(false)
 					v:SetTexelSnappingBias(0)
 					local tname = v:GetTexture()
-					if tname and texnames[tname] then
+					if tname and not issecretvalue(tname) and texnames[tname] then
 --					if tname and strfind (tname, "CT") then
 --						Nx.prt ("Tex %s", tname)
 
