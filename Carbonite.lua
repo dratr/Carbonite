@@ -108,7 +108,6 @@ Nx.Map.Guide.PlayerTargets = {}
 Nx.Travel = {}
 
 Nx.Title = {}
-Nx.AuctionAssist = {}
 
 Nx.UEvents = {}
 Nx.UEvents.List = {}
@@ -868,12 +867,10 @@ function Nx:InitEvents()
 
 	local Com = Nx.Com
 	local Guide = Nx.Map.Guide
-	local AuctionAssist = Nx.AuctionAssist
 	local Travel = Nx.Travel
 	
 	LibStub("AceEvent-3.0"):Embed(Com)
 	LibStub("AceEvent-3.0"):Embed(Guide)
-	LibStub("AceEvent-3.0"):Embed(AuctionAssist)
 	LibStub("AceEvent-3.0"):Embed(Travel)
 	
 	Nx:RegisterEvent("PLAYER_LOGIN", "OnPlayer_login")
@@ -898,10 +895,6 @@ function Nx:InitEvents()
 	Com:RegisterEvent("CHAT_MSG_CHANNEL", "OnChat_msg_channel")
 	--Com:RegisterEvent("CHAT_MSG_SYSTEM", "OnChat_msg_channel")
 	
-	AuctionAssist:RegisterEvent("AUCTION_HOUSE_SHOW", "OnAuction_house_show")
-	AuctionAssist:RegisterEvent("AUCTION_HOUSE_CLOSED", "OnAuction_house_closed")
-	AuctionAssist:RegisterEvent("REPLICATE_ITEM_LIST_UPDATE", "OnAuction_item_list_update")
-		
 	Guide:RegisterEvent("GOSSIP_SHOW", "OnGossip_show")
 	Guide:RegisterEvent("TRAINER_SHOW", "OnTrainer_show")
 
@@ -2298,150 +2291,6 @@ end
 
 -------------------------------------------------------------------------------
 -------------------------------------------------------------------------------
--- Auction
-
---PAIDS!
-
-function Nx.AuctionAssist.OnAuction_house_show()
-
---	Nx.prt ("OnAUCTION_HOUSE_SHOW")
-
-	if C_AddOns.IsAddOnLoaded ("Blizzard_AuctionUI") then
-		hooksecurefunc ("AuctionFrameBrowse_Update", Nx.AuctionAssist.AuctionFrameBrowse_Update)
-		Nx.AuctionAssist:Create()
-	end
-end
-
-function Nx.AuctionAssist.OnAuction_house_closed()
-
---	Nx.prt ("OnAUCTION_HOUSE_CLOSED")
-
-	local self = Nx.AuctionAssist
-	if self.Win then
-		self.Win:Show (false)
-		self.ItemList:Empty()
-	end
-end
-
-function Nx.AuctionAssist.OnAuction_item_list_update()
---	Nx.prt ("OnAUCTION_ITEM_LIST_UPDATE")
-	Nx.AuctionAssist:Update()
-end
-
---------
--- Create favorites window
-
-function Nx.AuctionAssist:Create()
-end
-
---------
--- On list events
-
-function Nx.AuctionAssist:OnListEvent (eventName, sel, val2, click)
-
---	Nx.prt ("Guide list event "..eventName)
-
-	local name = self.List:ItemGetData (sel)
-
-	Nx.prt ("%s", name)
-
-	BrowseName:SetText (name)
-	AuctionFrameBrowse_Search()
-end
-
-function Nx.AuctionAssist:Update()
-
-end
-
---------
-
-function Nx.AuctionAssist.AuctionFrameBrowse_Update()
-
-	if not Nx.AuctionShowBOPer then
-		return
-	end
-
---	Nx.prt ("Auction")
-
-	local low = 99999999
-	local lowName
-	local lowIName
-
-	local numBatchAuctions, totalAuctions = GetNumAuctionItems ("list")
-	local offset = FauxScrollFrame_GetOffset (BrowseScrollFrame)
-	local last = offset + NUM_BROWSE_TO_DISPLAY
-
---	Nx.prt ("Auction off %d %d %d", offset, numBatchAuctions, totalAuctions)
-
-	for n = 1, NUM_AUCTION_ITEMS_PER_PAGE do
-
-		local name, texture, count, quality, canUse, level, minBid, minIncrement, buyoutPrice, bidAmount, highBidder, owner = GetAuctionItemInfo ("list", n)
-
---		Nx.prt ("Auction #%d %d %d", n, buyoutPrice, count)
-
-		local index = n + NUM_AUCTION_ITEMS_PER_PAGE * AuctionFrameBrowse["page"]
-
-		if index > numBatchAuctions + NUM_AUCTION_ITEMS_PER_PAGE * AuctionFrameBrowse["page"] then
-			break
-		end
-
-		if bidAmount == 0 then
-			requiredBid = minBid
-		else
-			requiredBid = bidAmount + minIncrement
-		end
-
-		if requiredBid >= MAXIMUM_BID_PRICE then
-			buyoutPrice = requiredBid
-		end
-
-		if buyoutPrice > 0 then
-
-			local price1 = floor (buyoutPrice / count)
-
-			if n > offset and n <= last then
-
-				local buttonName = "BrowseButton" .. (n - offset)
-				local itemName = _G[buttonName .. "Name"]
-
-				if itemName then
-
-					if price1 < low then
-						low = price1
-						lowName = name
-						lowIName = itemName
-					end
-
---					Nx.prtVar ("name", buttonName)
-
-					if count > 1 then
-
-						itemName:SetText (format ("%s *", name))
-
-						local color = ITEM_QUALITY_COLORS[quality]
-						itemName:SetVertexColor (color.r, color.g, color.b)
-
-						local bf = _G[buttonName.."BuyoutFrameMoney"]
-						if bf then
-							MoneyFrame_Update (bf:GetName(), price1)
-						end
-					end
-				end
-
-			elseif price1 < low then
-				low = price1
-				lowName = nil
-			end
-		end
-	end
-
-	if lowName then
-		lowIName:SetText (format ("%s * low", lowName))
-	end
-end
-
--------------------------------------------------------------------------------
--------------------------------------------------------------------------------
 -- User events recording and list
 
 function Nx.UEvents:Init()
@@ -3468,9 +3317,6 @@ function Nx.NXMiniMapBut:Init()
 	menu:AddItem (0, L["Show Events"], self.Menu_OnShowEvents, self)
 	menu:AddItem (0, "", nil, self)
 
-	local item = menu:AddItem (0, L["Show Auction Buyout Per Item"], self.Menu_OnShowAuction, self)
-	item:SetChecked (false)
-
 	if Nx.db.profile.Debug.DebugCom then
 		menu:AddItem (0, "", nil, self)
 		menu:AddItem (0, L["Show Com Window"], self.Menu_OnShowCom, self)
@@ -3509,14 +3355,6 @@ end
 function Nx.NXMiniMapBut:Menu_OnHideWatch (item)
 	local hide = item:GetChecked()
 	Nx.Quest.Watch.Win:Show (not hide)
-end
-
-function Nx.NXMiniMapBut:Menu_OnShowAuction (item)
-	Nx.AuctionShowBOPer = item:GetChecked()
-
-	if AuctionFrame and AuctionFrame:IsShown() then
-		AuctionFrameBrowse_Update()
-	end
 end
 
 function Nx.NXMiniMapBut:Menu_OnShowCom()
