@@ -5827,16 +5827,6 @@ function Nx.Map:UpdateGroup (plX, plY)
 				f1.NXData = unit
 				f1.NXData2 = fullName
 
-				local inactive
-				for n = 1, MAX_TARGET_DEBUFFS do
-					local debuffData = C_UnitAuras.GetDebuffDataByIndex (unit, n)
-					if debuffData ~= nil and debuffData.name == "Inactive" then
-						inactive = true
-						per = 0
-						break
-					end
-				end
-
 				local txName = "IconPlyrP"
 
 				if pals[name] == false then
@@ -5875,11 +5865,7 @@ function Nx.Map:UpdateGroup (plX, plY)
 					if per > 0 then
 						f.texture:SetColorTexture (1, .1, .1, 1 - per * 2)
 					else
-						if inactive then
-							f.texture:SetColorTexture (1, 0, 1, .7)	-- Punk
-						else
-							f.texture:SetColorTexture (0, 0, 0, .5)	-- Dead
-						end
+						f.texture:SetColorTexture (0, 0, 0, .5)	-- Dead
 					end
 				end
 
