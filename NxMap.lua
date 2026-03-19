@@ -1616,15 +1616,6 @@ function Nx.Map:UpdateWorldMap()
 			f:Hide()
 		else
 
-			local tipf = _G["GameTooltip"]
-			if tipf then
-				tipf:SetFrameStrata ("TOOLTIP")
-			end
-			local af = _G["WorldMapFrameAreaFrame"]
-			if af then
-				af:SetFrameStrata ("HIGH")
-			end
-
 			f:Show()
 
 			self:ClipZoneFrm (self.Cont, self.Zone, f, 1)
@@ -8574,8 +8565,6 @@ function Nx.Map:GetIconWQ (levelAdd)
 	f:SetScript ("OnMouseUp", self.IconOnMouseUp)]]--
 	f:SetScript ("OnEnter", function (self) 
 		TaskPOI_OnEnter(self) 
-		GameTooltip:SetFrameStrata("TOOLTIP");
-		GameTooltip.ItemTooltip.Tooltip:SetClampedToScreen(false)
 	end)
 	f:SetScript ("OnLeave", TaskPOI_OnLeave)
 	--f:SetScript ("OnHide", self.IconOnLeave)]]--
