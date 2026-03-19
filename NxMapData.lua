@@ -2085,6 +2085,16 @@ Map.MapWorldInfo = {
 		Name = L["Zul'Aman"],
 		Overlay = "zulaman"
 	},	
+	[2444] = {
+		X = 1509,
+		Y = 160,
+		Scale = 9.10,
+		Name = L["Slayer's Rise"],
+		Overlay = "slayersrise",
+		MapBaseName = "SlayersRise",
+		City = true,
+		MMOutside = true,
+	},	
 	[2472] = {
 		Scale = 3.65,
 		X = 660,
