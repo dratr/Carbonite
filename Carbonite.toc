@@ -1,4 +1,4 @@
-## Interface: 110200,120000
+## Interface: 120005
 ## Title: Carbonite Maps @project-version@
 ## Version: 1
 ## Author: No one

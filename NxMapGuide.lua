@@ -1893,37 +1893,9 @@ end
 function Nx.Map.Guide:GetSecondaryTrainer (profName)
 	return " " .. L["Trainer"]
 end
-function Nx.Map.Guide:SavePlayerNPCTarget()
-	-- local visible = GameTooltip:IsVisible()
-	-- GameTooltip:SetOwner(MerchantFrame)
-	-- GameTooltip:SetUnit("NPC")
-	local tag = GameTooltipTextLeft2:GetText() or ""
-	local lvl = GameTooltipTextLeft3:GetText() or ""
-	local faction = GameTooltipTextLeft4:GetText() or ""
-	if strfind(tag,"^" .. L["Level"] .. " ") or strfind(tag, "^|c%x%x%x%x%x%x%x%x" .. L["Level"] .. " ") then
-		tag=""
-		faction=lvl
-	end
-	local str=format("%s~%s~%s",tag,GameTooltipTextLeft1:GetText() or "",faction)
-	self.PlayerNPCTarget = str
-	-- if not visible then
-	-- 	GameTooltip:Hide()
-	-- end
-
-
-	local map = Nx.Map:GetMap (1)
-	local s = Nx:PackXY (map.PlyrRZX, map.PlyrRZY)
-	self.PlayerNPCTargetPos = format ("%d^%s", map.UpdateMapID or 0, s)
-end
 function Nx.Map.Guide.OnGossip_show()
-	local self = Nx.Map.Guide
-	self:SavePlayerNPCTarget()
-	self:CaptureNPC ("G")
 end
 function Nx.Map.Guide.OnTrainer_show()
-	local self = Nx.Map.Guide
-	self:SavePlayerNPCTarget()
-	self:CaptureNPC ("T")
 end
 function Nx.Map.Guide:CaptureNPC (data)
 	if not Nx.db.profile.General.CaptureEnable then
