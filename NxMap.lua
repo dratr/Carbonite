@@ -835,7 +835,6 @@ function Nx.Map:Create (index)
 	showMenu:AddItem (0, L["Show Player Zone"], self.Menu_OnShowPlayerZone, m)
 
 	local function func (self)
-		self.Guide:UpdateGatherFolders()
 	end
 
 	local item = showMenu:AddItem (0, L["Show Herb Locations"], func, m)
@@ -852,15 +851,9 @@ function Nx.Map:Create (index)
 	item:SetChecked (Nx.db.char.Map, "ShowGatherA")
 
 
-	local function func (self)
-		self.Guide.POIDraw = nil
-		Nx.Map.Guide:ClearShowFolders()
-		Nx.Map.Guide:UpdateMapIcons()
-	end
-
 	local item = showMenu:AddItem (0, L["Show Continent POIs"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowContPois")
-	local item = showMenu:AddItem (0, L["Show Guide POIs"], func, m)
+	local item = showMenu:AddItem (0, L["Show Mailboxes"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowMailboxes")
 	local item = showMenu:AddItem (0, L["Show Custom Icons"], func, m)
 	item:SetChecked (Nx.db.char.Map, "ShowCustom")
@@ -1028,10 +1021,6 @@ function Nx.Map:Create (index)
 
 	local item = tmenu:AddItem (0, L["Fade Out Transparency"], self.Menu_OnBackgndAlphaFade, m)
 	item:SetSlider (m.BackgndAlphaFade, 0, 1)
-
-	local function func (self)
-		self.Guide:UpdateGatherFolders()
-	end
 
 	local item = tmenu:AddItem (0, L["Gather Icon Transparency"], func, m)
 	item:SetSlider (Nx.db.profile.Map, .2, 1, nil, "IconGatherA")
@@ -1276,10 +1265,6 @@ function Nx.Map:Create (index)
 
 	m:UpdateAll()
 
-	m.Guide = Map.Guide:Create (m)
-
-	--
-
 	self.MMFrm = _G["Minimap"]
 	assert (self.MMFrm)
 
@@ -1328,7 +1313,6 @@ function Nx.Map:CreateToolBar()
 		Nx.BarData = {
 			{ "MapZIn", L["Zoom In"], self.OnButZoomIn, false },
 			{ "MapZOut", L["Zoom Out"], self.OnButZoomOut, false },
-			{ "MapGuide", L["Guide"], self.OnButToggleGuide, false },
 			{ "MapCombat", L["Combat"], self.OnButToggleCombat, false },
 			{ "MapEvents", L["Events"], self.OnButToggleEvent, false },
 		}
@@ -1713,10 +1697,6 @@ end
 
 function Nx.Map:OnButZoomOut()
 	self:SetScaleOverTime (-2)
-end
-
-function Nx.Map:OnButToggleGuide (but)
-	self.Guide:ToggleShow()
 end
 
 function Nx.Map:OnButToggleEvent (but)
@@ -2911,7 +2891,6 @@ end
 
 function Nx.Map:Menu_OnClearGoto (item)
 	self:ClearTargets()
-	self.Guide:ClearAll()
 end
 
 function Nx.Map:Menu_OnMonitorZone (item)
@@ -3362,15 +3341,6 @@ WorldMapFrame:HookScript("OnShow", function()
 				map:DetachWorldMap()
 			end
 		else
-			-- DugisGuide FIX
-			if DugisGuideViewer then  
-				local isGuideMode, isEssentialMode, isOffMode = DugisGuideViewer.GetPluginMode()	
-				if not isOffMode and GPSArrowIcon and not GPSArrowIcon:IsShown() then
-					HideUIPanel (WorldMapFrame) 
-					return
-				end
-			end
-		
 			HideUIPanel (WorldMapFrame) 
 			Nx.Map:ToggleSize()	
 		end
@@ -3648,7 +3618,6 @@ function Nx:NXMapKeyTogHerb()
 	local map = Nx.Map:GetMap (1)
 	Nx.db.char.Map.ShowGatherH = not Nx.db.char.Map.ShowGatherH
 	map.MenuIShowHerb:SetChecked (Nx.db.char.Map, "ShowGatherH")
-	map.Guide:UpdateGatherFolders()
 end
 
 --------
@@ -3659,14 +3628,12 @@ function Nx:NXMapKeyTogTimber()
 	local map = Nx.Map:GetMap (1)
 	Nx.db.char.Map.ShowGatherL = not Nx.db.char.Map.ShowGatherL
 	map.MenuIShowTimber:SetChecked (Nx.db.char.Map, "ShowGatherL")
-	map.Guide:UpdateGatherFolders()
 end
 
 function Nx:NXMapKeyTogMine()
 	local map = Nx.Map:GetMap (1)
 	Nx.db.char.Map.ShowGatherM = not Nx.db.char.Map.ShowGatherM
 	map.MenuIShowMine:SetChecked (Nx.db.char.Map, "ShowGatherM")
-	map.Guide:UpdateGatherFolders()
 end
 
 --------
@@ -4232,7 +4199,7 @@ function Nx.Map.OnUpdate (this, elapsed)	--V4 this
 
 	-- Check quest window
 	if Nx.Quest then
-		if map.Guide.Win.Frm:IsVisible() or Nx.Quest.List.Win and Nx.Quest.List.Win.Frm:IsVisible() then
+		if Nx.Quest.List.Win and Nx.Quest.List.Win.Frm:IsVisible() then
 			map.BackgndAlphaTarget = map.BackgndAlphaFull
 		end
 	end
@@ -5172,7 +5139,6 @@ function Nx.Map:Update (elapsed)
 	local comTrackName, comTrackX, comTrackY = Nx.Com:UpdateIcons (self)
 
 	self.Level = self.Level + 2
-	self.Guide:UpdateZonePOIIcons()
 	for a,b in pairs(Nx.ModuleUpdateIcon) do
 		if b ~= "test" then
 			Nx[b]:UpdateIcons(self)
@@ -5271,8 +5237,6 @@ function Nx.Map:Update (elapsed)
 	-- Corpse or target tracking
 
 	self.TrackDir = false
-
-	self.Guide:OnMapUpdate()	-- For closest target
 
 	if #self.Targets > 0 then
 
@@ -5485,8 +5449,6 @@ function Nx.Map:SwitchRealMap (id)
 			self.Scale = self.RealScale
 		end
 	end
-	local map = Nx.Map:GetMap (1)
-	map.Guide:UpdateMapIcons()
 end
 --------
 -- Scan the continents for POI data
@@ -6018,8 +5980,6 @@ function Nx.Map:UpdateTargets()
 			end
 
 			UIErrorsFrame:AddMessage ("Target " .. tar.TargetName .. " reached", 1, 1, 1, 1)
-
-			self.Guide:ClearAll()
 
 			if tar.RadiusFunc then
 --				Nx.prt ("Target radius func")

@@ -19,6 +19,5 @@ NxHUD.lua
 Data\data.xml
 NxMapData.lua
 NxMap.lua
-NxMapGuide.lua
 NxTravel.lua
 Carbonite.xml

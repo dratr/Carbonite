@@ -53,35 +53,6 @@ function Nx.Travel:Init()
 end
 
 function Nx.Travel:Add (typ)
-
-
-	local Map = Nx.Map
-	local hideFac = UnitFactionGroup ("player") == "Horde" and 1 or 2
-	for a,b in pairs(Nx.GuideData[typ]) do
-		if a ~= "Mode" then
-			local ext = { Nx.Split("|",b) }
-			for c,d in pairs(ext) do
-				if d then
-					local side,x,y,level,num = Nx.Split(",",d)
-					local fac,name,locName,zone,x,y,level = Nx.Split("|",Nx.NPCData[tonumber(num)])
-					fac,zone,x,y = tonumber(fac),tonumber(zone),tonumber(x),tonumber(y)
-					local _, _, _, _, cont, _, _ = Nx.Split ("|", Nx.Zones[tonumber(zone)])
-					local tdata = self.Travel[tonumber(cont)]
-					if fac ~= hideFac then
-						local mapId = zone
-						local wx, wy = Map:GetWorldPos (mapId, x, y)
-						local node = {}
-						node.Name = locName
-						node.LocName = locName		-- Localize it
-						node.MapId = mapId
-						node.WX = wx
-						node.WY = wy
-						tinsert (tdata, node)
-					end
-				end
-			end
-		end
-	end
 end
 
 ---------------------------------------------------------------------------------------
@@ -120,11 +91,6 @@ function Nx.Travel:CaptureTaxi()
 		if TaxiNodeGetType (n) == "CURRENT" then
 
 			self.TaxiNameStart = locName
-
-			if Nx.db.profile.Debug.DebugMap then
-				local name = Nx.Map.Guide:FindTaxis (locName)
-				Nx.prt ("Taxi current %s (%s)", name or "nil", locName)
-			end
 		end
 	end
 end
@@ -140,11 +106,6 @@ function Nx.Travel.TakeTaxiNode (node)
 
 --	map.TaxiName = Nx.Split (",", TaxiNodeName (node))
 	map.TaxiName = TaxiNodeName (node)
-
-	local name, x, y = Nx.Map.Guide:FindTaxis (map.TaxiName)
---	map.TaxiNPCName = name
-	map.TaxiX = x
-	map.TaxiY = y
 
 	Nx.Map.TaxiETA = false
 
@@ -260,61 +221,6 @@ end
 --
 
 function Nx.Travel:TaxiFindConnectionTime (srcName, destName)
-	local srcNPCName, x, y = Nx.Map.Guide:FindTaxis (srcName)
-	local destNPCName, x, y = Nx.Map.Guide:FindTaxis (destName)
-
---	Nx.prt ("NPC src %s %s", srcName, srcNPCName or "nil")
---	Nx.prt ("NPC dest %s %s", destName, destNPCName or "nil")
-
-	-- single string comprising multiple 6 byte entries
-	-- aabbcc
-	-- aa = index of start npc (Nx.NPCData table)
-	-- bb = index of end npc (Nx.NPCData table)
-	-- cc = flight time in 10ths of a second
-	-- all are base 221 encoded (indicies start at 1)
-
-	local conn = Nx.FlightConnection
-
-	for n = 1, #conn, 6 do
-
-		local a1, a2, b1, b2, c1, c2 = strbyte (conn, n, n + 5)
-
-		local i = (a1 - 35) * 221 + a2 - 35
-
-		local npc = Nx.NPCData[i]
-		if npc then
-
-			local oStr = strsub (npc, 2)
-			local desc, zone, loc = Nx.Map:UnpackObjective (oStr)
-			local name = Nx.Split ("!", desc)
-
-			if name == srcNPCName then
-
---				Nx.prt ("SNPC %s", desc)
-
-				local i = (b1 - 35) * 221 + b2 - 35
-				local npc = Nx.NPCData[i]
-				if npc then
-
-					local oStr = strsub (npc, 2)
-					local desc, zone, loc = Nx.Map:UnpackObjective (oStr)
-					local name = Nx.Split ("!", desc)
-
-					if name == destNPCName then
-
---						Nx.prt ("DNPC %s", desc)
-
-						return ((c1 - 35) * 221 + c2 - 35) / 10
-					end
-				else
-					Nx.prt ("Travel: missing dnpc %s %s", destName, i)
-				end
-			end
-		else
-			Nx.prt ("Travel: missing snpc %s %s", srcName, i)
-		end
-	end
-
 	return 0
 end
 

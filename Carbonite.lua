@@ -59,7 +59,6 @@ BINDING_NAME_NxMAPSCALERESTORE	= L["NxMAPSCALERESTORE"]
 BINDING_NAME_NxMAPTOGMINIFULL	= L["NxMAPTOGMINIFULL"]
 BINDING_NAME_NxMAPTOGHERB	= L["NxMAPTOGHERB"]
 BINDING_NAME_NxMAPTOGMINE	= L["NxMAPTOGMINE"]
-BINDING_NAME_NxTOGGLEGUIDE	= L["NxTOGGLEGUIDE"]
 BINDING_NAME_NxMAPSKIPTARGET	= L["NxMAPSKIPTARGET"]
 BINDING_NAME_NxMAPTOGTIMBER	= L["NxMAPTOGTIMBER"]
 
@@ -102,8 +101,6 @@ Nx.HUD = {}
 
 Nx.Map = {}
 Nx.Map.Dock = {}
-Nx.Map.Guide = {}
-Nx.Map.Guide.PlayerTargets = {}
 
 Nx.Travel = {}
 
@@ -201,163 +198,6 @@ local defaults = {
 			LoginHideVer = true,
 			TitleOff = true,
 			TitleSoundOn = false,
-		},
-		Guide = {
-			VendorVMax = 60,
-			GatherEnabled = true,
-			ShowMines = {
-				[1] = true,
-				[2] = true,
-				[3] = true,
-				[4] = true,
-				[5] = true,
-				[6] = true,
-				[7] = true,
-				[8] = true,
-				[9] = true,
-				[10] = true,
-				[11] = true,
-				[12] = true,
-				[13] = true,
-				[14] = true,
-				[15] = true,
-				[16] = true,
-				[17] = true,
-				[18] = true,
-				[19] = true,
-				[20] = true,
-				[21] = true,
-				[22] = true,
-				[23] = true,
-				[24] = true,
-				[25] = true,
-				[26] = true,
-				[27] = true,
-				[28] = true,
-				[29] = true,
-				[30] = true,
-				[31] = true,
-				[32] = true,
-				[33] = true,
-				[34] = true,
-				[35] = true,
-				[36] = true,
-				[37] = true,
-				[38] = true,
-				[39] = true,
-				[40] = true,
-				[41] = true,
-				[42] = true,
-				[43] = true,
-				[44] = true,
-				[45] = true,
-				[46] = true,
-				[47] = true,
-				[48] = true,
-				[49] = true,
-				[50] = true,
-				[51] = true,
-				[52] = true,
-				[53] = true,
-				[54] = true,
-				[55] = true,
-				[56] = true,
-				[57] = true,
-				[58] = true,
-				[59] = true,
-				[60] = true,
-			},
-			ShowHerbs = {
-				[1] = true,
-				[2] = true,
-				[3] = true,
-				[4] = true,
-				[5] = true,
-				[6] = true,
-				[7] = true,
-				[8] = true,
-				[9] = true,
-				[10] = true,
-				[11] = true,
-				[12] = true,
-				[13] = true,
-				[14] = true,
-				[15] = true,
-				[16] = true,
-				[17] = true,
-				[18] = true,
-				[19] = true,
-				[20] = true,
-				[21] = true,
-				[22] = true,
-				[23] = true,
-				[24] = true,
-				[25] = true,
-				[26] = true,
-				[27] = true,
-				[28] = true,
-				[29] = true,
-				[30] = true,
-				[31] = true,
-				[32] = true,
-				[33] = true,
-				[34] = true,
-				[35] = true,
-				[36] = true,
-				[37] = true,
-				[38] = true,
-				[39] = true,
-				[40] = true,
-				[41] = true,
-				[42] = true,
-				[43] = true,
-				[44] = true,
-				[45] = true,
-				[46] = true,
-				[47] = true,
-				[48] = true,
-				[49] = true,
-				[50] = true,
-				[51] = true,
-				[52] = true,
-				[53] = true,
-				[54] = true,
-				[55] = true,
-				[56] = true,
-				[57] = true,
-				[58] = true,
-				[59] = true,
-				[60] = true,
-				[61] = true,
-				[62] = true,
-				[63] = true,
-				[64] = true,
-				[65] = true,
-				[66] = true,
-				[67] = true,
-				[68] = true,
-				[69] = true,
-				[70] = true,
-				[71] = true,
-				[72] = true,
-				[73] = true,
-				[74] = true,
-				[75] = true,
-				[76] = true,	
-				[77] = true,
-				[78] = true,
-				[79] = true,
-				[80] = true,
-				[81] = true,
-				[82] = true,
-				[83] = true,
-				[84] = true,
-			},
-			ShowTimber = {
-				[1] = true,
-				[2] = true,
-				[3] = true,
-			},
 		},
 		Comm = {
 			Global = true,
@@ -546,7 +386,6 @@ Nx.Broker = LibStub("LibDataBroker-1.1"):NewDataObject("Broker_Carbonite", {
 											if Nx.db.profile.MiniMap.ButOwn then
 												tooltip:AddLine(L["Shift Left-Click to Toggle Minimize"])
 											end
-											tooltip:AddLine(L["Middle-Click to Toggle Guide"])
 											tooltip:AddLine(L["Right-Click for Menu"])
 										end,
 						OnClick = function(frame, msg)
@@ -557,8 +396,6 @@ Nx.Broker = LibStub("LibDataBroker-1.1"):NewDataObject("Broker_Carbonite", {
 										else
 											Nx.Map:ToggleSize(0)
 										end
-									elseif msg == "MiddleButton" then
-										Nx.Map:GetMap(1).Guide:ToggleShow()
 									elseif msg == "RightButton" then
 										EasyMenu(Nx.BrokerMenuTemplate, menuFrame, "cursor", 0, 0, "MENU")
 									end
@@ -866,11 +703,9 @@ end
 function Nx:InitEvents()
 
 	local Com = Nx.Com
-	local Guide = Nx.Map.Guide
 	local Travel = Nx.Travel
 	
 	LibStub("AceEvent-3.0"):Embed(Com)
-	LibStub("AceEvent-3.0"):Embed(Guide)
 	LibStub("AceEvent-3.0"):Embed(Travel)
 	
 	Nx:RegisterEvent("PLAYER_LOGIN", "OnPlayer_login")
@@ -895,9 +730,6 @@ function Nx:InitEvents()
 	Com:RegisterEvent("CHAT_MSG_CHANNEL", "OnChat_msg_channel")
 	--Com:RegisterEvent("CHAT_MSG_SYSTEM", "OnChat_msg_channel")
 	
-	Guide:RegisterEvent("GOSSIP_SHOW", "OnGossip_show")
-	Guide:RegisterEvent("TRAINER_SHOW", "OnTrainer_show")
-
 	Travel:RegisterEvent("TAXIMAP_OPENED", "OnTaximap_opened")
 end
 
@@ -2362,67 +2194,21 @@ end
 -- Add herb to list
 
 function Nx.UEvents:AddHerb (name)
-
-	local mapId, x, y, level = self:GetPlyrPos()
-	mapId = Nx.Map:GetCurrentMapAreaID()
-	if Nx.db.profile.Guide.GatherEnabled then
-		local id = Nx:HerbNameToId (name)
-		if id then
-			Nx:AddHerbEvent (name, Nx:Time(), mapId, x, y)
-			Nx:GatherHerb (id, mapId, x, y, level)
-		end
-		self:UpdateAll (true)
-	end
 end
 
 
 function Nx.UEvents:AddTimber(name)
-	local mapId, x, y, level = self:GetPlyrPos()
-	local size = false
-	if Nx.db.profile.Guide.GatherEnabled then		
-		if name == L["Small Timber"] then
-			size = 1
-		elseif name == L["Timber"] then
-			size = 2
-		elseif name == L["Large Timber"] then
-			size = 3
-		end
-		if size then
-			Nx.prt(size)
-			Nx:AddTimberEvent (name, Nx:Time(), mapId, x, y)
-			Nx:GatherTimber (size, mapId, x, y, level)
-		end
-		self:UpdateAll (true)
-	end
 end
 ------
 -- Add mine to list
 
 function Nx.UEvents:AddMine (name)	
-	local mapId, x, y, level = self:GetPlyrPos()
-	mapId = Nx.Map:GetCurrentMapAreaID()
-	if Nx.db.profile.Guide.GatherEnabled then
-		local id = Nx:MineNameToId (name)
-		if id then
-			Nx:AddMineEvent (name, Nx:Time(), mapId, x, y)
-			Nx:GatherMine (id, mapId, x, y, level)
-		end
-		self:UpdateAll (true)
-	end
 end
 
 ------
 -- Add open to list
 
 function Nx.UEvents:AddOpen (typ, name)
-
-	local mapId = self:AddInfo (name)
-	if Nx.db.profile.Guide.GatherEnabled then
-		local mapId, x, y, level = self:GetPlyrPos()
-		mapId = Nx.Map:GetCurrentMapAreaID()
-		Nx:Gather ("Misc", typ, mapId, x, y, level)
-		self:UpdateAll()
-	end
 end
 
 --------
@@ -2436,10 +2222,9 @@ end
 
 --------
 
-function Nx.UEvents:UpdateAll (upGuide)
+function Nx.UEvents:UpdateAll ()
 
 	self:Sort()
-	self:UpdateMap (upGuide)
 	self.List:Update()
 end
 
@@ -2572,7 +2357,7 @@ end
 ------
 -- Update user event data on map
 
-function Nx.UEvents:UpdateMap (upGuide)
+function Nx.UEvents:UpdateMap ()
 
 --	Nx.prt ("UEvents:UpdateMap")
 
@@ -2583,10 +2368,6 @@ function Nx.UEvents:UpdateMap (upGuide)
 	local m = Map:GetMap (1)
 
 	if m then
-
-		if upGuide then
-			m.Guide:Update()
-		end
 
 		m:InitIconType ("Kill", nil, "Interface\\TargetingFrame\\UI-TargetingFrame-Skull", 16, 16)
 		m:InitIconType ("Death", nil, "Interface\\TargetingFrame\\UI-TargetingFrame-Seal", 16, 16)
@@ -3256,7 +3037,6 @@ function Nx.Item.AskDeleteVV()
 
 	local function func()
 			Nx.db.profile.VendorV = nil
-			Nx.Map.Guide:UpdateVisitedVendors()
 	end
 
 	Nx:ShowMessage (Nx.TXTBLUE.."Carbonite:\n|cffffff60" .. L["Delete visited vendor data?"] .. "\n" .. L["This will stop the attempted retrieval of items on login."], L["Delete"], func, L["Cancel"])
@@ -3292,10 +3072,6 @@ function Nx.Item:DrawTimer()
 	else
 		Nx.prt (L["Item retrieval from server complete"])
 	end
-
-	local g = Nx.Map:GetMap (1).Guide
-	g:UpdateVisitedVendors()
-	g:Update()
 end
 
 -------------------------------------------------------------------------------
@@ -3393,7 +3169,6 @@ function Nx.NXMiniMapBut:NXOnEnter (frm)
 	end
 
 	tip:AddLine (L["Alt left click toggle Watch List"], 1, 1, 1, true)
-	tip:AddLine (L["Middle click toggle Guide"], 1, 1, 1, true)
 	tip:AddLine (L["Right click for Menu"], 1, 1, 1, true)
 
 	if not mmown then
@@ -3417,10 +3192,6 @@ function Nx.NXMiniMapBut:NXOnClick (button, down)
 		else
 			Nx.Map:ToggleSize (0)
 		end
-
-	elseif button == "MiddleButton" then
-
-		Nx.Map:GetMap (1).Guide:ToggleShow()
 
 	else
 		self:OpenMenu()
