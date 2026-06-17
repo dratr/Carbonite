@@ -2068,7 +2068,7 @@ function Nx.Map:MinimapOwnInit()
 		return
 	end
 	mm:SetMaskTexture ("Interface\\AddOns\\Carbonite\\Gfx\\Map\\MinimapMask")
-	self:MinimapNodeGlowInit()
+--	self:MinimapNodeGlowInit()
 	Nx.Map:MinimapButtonShowUpdate (true)
 
 	mm:SetClampedToScreen (true)
@@ -2078,7 +2078,6 @@ function Nx.Map:MinimapOwnInit()
 
 	mm:SetParent (self.Frm)
 	self.MMFrm:SetQuestBlobRingAlpha(1)
-	self.MMFrm:SetPOIArrowTexture("")
 	mm:SetScript ("OnMouseDown", self.MinimapOnMouseDown)
 	mm:SetScript ("OnMouseUp", self.MinimapOnMouseUp)
 	mm:SetScript ("OnEnter", self.MinimapOnEnter)
@@ -2705,14 +2704,6 @@ function Nx.Map:MinimapUpdateMask (optName)
 		mm:SetMaskTexture (name)
 
 --		Nx.prt ("MMmask %s", name)
-	end
-
-	local name = self.MMZoomType == 0 and "Interface\\Minimap\\MinimapArrow" or ""
-	if self.MMArrowName ~= name then
-		self.MMArrowName = name
-		if (name ~= "") then
-			self.MMFrm:SetPlayerTexture (name)
-		end
 	end
 end
 
