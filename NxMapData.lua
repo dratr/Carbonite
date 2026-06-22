@@ -2058,8 +2058,8 @@ Map.MapWorldInfo = {
 		Name = L["Eversong Woods"],
 	},
 	[2405] = {
-		X = 1343,
-		Y = 134,
+		X = 860,
+		Y = -1400,
 		Scale = 20.35,
 		Name = L["Voidstorm"],
 		Overlay = "voidstorm"
@@ -2110,7 +2110,6 @@ Map.MapWorldInfo = {
 		Y = 1389,
 		TileX = 15,
 		TileY = 10,
-		Overlay = "atalaman",
 		MapBaseName = "AtalAmanCity",
 		City = true,
 		MMOutside = true,
@@ -2119,6 +2118,16 @@ Map.MapWorldInfo = {
 		X = 0,
 		Y = 0,
 		Scale = 30.867
+	},
+	[2600] = {
+		Scale = 4.96,
+		-- Add offsets of voidstorm
+		X = 2284,
+		Y = 323-1400,
+		Name = L["Naigtal"],
+		MapBaseName = "ShowdownNaigtal",
+		City = true,
+		MMOutside = true,
 	},
 	[9005] = {		-- Blade's Edge Arena
 		Name = L["Blade's Edge Arena"],
