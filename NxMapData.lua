@@ -2119,6 +2119,16 @@ Map.MapWorldInfo = {
 		Y = 0,
 		Scale = 30.867
 	},
+	[2599] = {
+		Scale = 1.85,
+		-- Add offsets of voidstorm
+		X = 278+860,
+		Y = 144-1400,
+		Name = L["Val"],
+		MapBaseName = "ShowdownVal",
+		City = true,
+		MMOutside = true,
+	},
 	[2600] = {
 		Scale = 4.96,
 		-- Add offsets of voidstorm
