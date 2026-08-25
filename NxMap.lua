@@ -9145,7 +9145,7 @@ function Nx.Map:InitTables()
 		 [13] = {1670,1671,1672,1673,1525,1533,1536,1543,1565,1707,1961,1970},
 		 [14] = {2022,2023,2024,2025,2107,2112,2133,2151,2200},
 		 [15] = {2248,2213,2214,2215,2255,2339,2369,2346,2371,2472},
-		 [16] = {2395,2393,2413,2437,2536,2424,2405,2444,2599,2600},
+		 [16] = {2395,2393,2413,2437,2536,2424,2405,2444,2599,2600,2512,2509},
 		 [90] = {91,92,93,112,128,169,206,275,397,417,423,519,623,837,907,1339,1366},		  -- 1134 spbrawl		 
 		 [100] = {},
 	}
@@ -10624,65 +10624,8 @@ function Nx.Map.Dock:MinimapOwnInit()
 			end
 		end
 	end
-
+	
 	-- Scan all frames
-
-	local texnames = { ["Interface\\AddOns\\CT_Core\\Images\\minimapIcon"] = 1, }
-
-	local mapf = map.Frm
-	local winf = self.Win.Frm
-
-	local found = {}
-
-	local f = EnumerateFrames()
-	while f do
-
-		if not f:IsObjectType ("Model") then
---		if f:IsShown() and not f:IsObjectType ("Model") then
-			
-			if pcall(f.GetPoint, f) then
-				local pt, relTo = f:GetPoint()
-				if relTo == mm then
-
-					local parent = f:GetParent()
-					if parent ~= mm and parent ~= mapf then
-	--					Nx.prtFrame ("Dock Scan", f)
-						found[f] = 1
-					end
-				end
-			end
-
-			local reg = { f:GetRegions() }
-			for k, v in ipairs (reg) do
-
-				if v:IsObjectType ("Texture") then
-					v:SetSnapToPixelGrid(false)
-					v:SetTexelSnappingBias(0)
-					local tname = v:GetTexture()
-					if tname and not issecretvalue(tname) and texnames[tname] then
---					if tname and strfind (tname, "CT") then
---						Nx.prt ("Tex %s", tname)
-
-						found[f] = 1
-						break
-					end
-				end
-			end
-		end
-
-		f = EnumerateFrames (f)
-	end
-
-	-- Add found frames to list
-
-	for f in pairs (found) do
-
-		if not map.MMOwnedFrms[f] then
-			map.MMOwnedFrms[f] = 0
-			tinsert (self.MMFrms, f)
-			f:SetParent (winf)
-		end
-	end
 
 	map.Win:Show (map.StartupShown)
 
